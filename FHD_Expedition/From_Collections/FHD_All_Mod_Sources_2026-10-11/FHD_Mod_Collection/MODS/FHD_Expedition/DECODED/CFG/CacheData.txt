@@ -1,0 +1,12 @@
+Bm ^{
+    FHDExpedition ^{
+        ExpedA=Mods\FHD_MODS\FHD_Expedition\DATA\UI\2ExpedA.gi
+        ExpedD=Mods\FHD_MODS\FHD_Expedition\DATA\UI\2ExpedD.gi
+        ExpedN=Mods\FHD_MODS\FHD_Expedition\DATA\UI\2ExpedN.gi
+        HUD2=Mods\FHD_MODS\FHD_Expedition\DATA\UI\HUD2.gi
+    }
+}
+Script ^{
+    FHD_Expedition=Mods\FHD_MODS\FHD_Expedition\DATA\Script\FHD_Expedition.scr
+    FHD_Expedition_Intro=Mods\FHD_MODS\FHD_Expedition\DATA\Script\FHD_Expedition_Intro.scr
+}

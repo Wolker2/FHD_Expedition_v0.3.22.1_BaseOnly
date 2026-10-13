@@ -1,0 +1,51 @@
+{
+  "base": "FHD_Expedition(3).rar original mechanics",
+  "main_dat_rebuilt_from_original_structure": true,
+  "main_dat_only_semantic_diffs": {
+    "Data/Script/FHD_Expedition_Intro": [
+      null,
+      "1,Script.FHD_Expedition_Intro"
+    ],
+    "ML/RuinsTalk/Panel/FHDExpeditionButtonNode/Panel/GraphButton/OnPressCode/00": [
+      "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.Open'));",
+      "ShipDeleteCustomShipInfo(Player(),'FHDExpeditionIntroRequest');ShipAddCustomShipInfo(Player(),'FHDExpeditionIntroRequest','NoShow',0,0,0,'','','FHDEXP_INTRO_REQUEST');FormChange('RuinsTalk');"
+    ]
+  },
+  "FHDExpeditionList_window_entry_counts": {
+    "Frame": 1,
+    "GraphButton": 4,
+    "Label": 6,
+    "Name": 1,
+    "Panel": 16,
+    "Pos": 1,
+    "Size": 1,
+    "Style": 1
+  },
+  "GraphButtons": [
+    "Prev",
+    "Next",
+    "Cancel",
+    "Done"
+  ],
+  "Labels": [
+    "Title",
+    "Page",
+    "Hint",
+    "PrevCaption",
+    "NextCaption",
+    "DoneCaption"
+  ],
+  "Page_object_present": true,
+  "Row_panels_count": 14,
+  "core_runtime_files_byte_identical_to_user_rar": {
+    "DATA/FHDExpeditionNative.dll": true,
+    "DATA/FHDExpeditionNative.lib": true,
+    "DATA/Script/FHD_Expedition.scr": true,
+    "DATA/UI/2ExpedA.gi": true,
+    "DATA/UI/2ExpedD.gi": true,
+    "DATA/UI/2ExpedN.gi": true
+  },
+  "lang_from_intro_package_sha256": "96f93a6036e71c323bb71bea5752adeaf99df7474b5b25e15f12808a7508cdd5",
+  "cache_from_intro_package_sha256": "a2509f9c5c43e0a87e00e70de65ccfa3b9d15bb185eb35ba633019388cdfd347",
+  "intro_scr_sha256": "e972ecd789ff34a1f4e845a7a5c36d9a33ffea0eb04a973a2fce93ae509ec882"
+}

@@ -1,0 +1,60 @@
+{
+  "format": "cache",
+  "header_key": 3935256375,
+  "new_format": false,
+  "seed": 1369621460,
+  "sha256": "3d1485b3220656bc70b4fcd57ca7b6b0d556a55f076b484599d9b8535c0575be",
+  "tree": {
+    "sorted": true,
+    "entries": [
+      {
+        "name": "Bm",
+        "block": {
+          "sorted": true,
+          "entries": [
+            {
+              "name": "FHDExpedition",
+              "block": {
+                "sorted": true,
+                "entries": [
+                  {
+                    "name": "ExpedA",
+                    "value": "Mods\\FHD_MODS\\FHD_Expedition\\DATA\\UI\\2ExpedA.gi"
+                  },
+                  {
+                    "name": "ExpedD",
+                    "value": "Mods\\FHD_MODS\\FHD_Expedition\\DATA\\UI\\2ExpedD.gi"
+                  },
+                  {
+                    "name": "ExpedN",
+                    "value": "Mods\\FHD_MODS\\FHD_Expedition\\DATA\\UI\\2ExpedN.gi"
+                  },
+                  {
+                    "name": "HUD2",
+                    "value": "Mods\\FHD_MODS\\FHD_Expedition\\DATA\\UI\\HUD2.gi"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Script",
+        "block": {
+          "sorted": true,
+          "entries": [
+            {
+              "name": "FHD_Expedition",
+              "value": "Mods\\FHD_MODS\\FHD_Expedition\\DATA\\Script\\FHD_Expedition.scr"
+            },
+            {
+              "name": "FHD_Expedition_Intro",
+              "value": "Mods\\FHD_MODS\\FHD_Expedition\\DATA\\Script\\FHD_Expedition_Intro.scr"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

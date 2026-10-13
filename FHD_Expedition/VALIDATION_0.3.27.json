@@ -1,0 +1,16 @@
+{
+  "version": "0.3.27 RuinsTalk Intro",
+  "goal": "Bottom expedition button -> native upper RuinsTalk text pane + native lower answer list",
+  "original_scr_preserved": true,
+  "original_scr_sha256": "3f23c361cc899c47ccf46677e7d47e015da79c2a5e10c7355a2f6121f316045b",
+  "native_dll_preserved": true,
+  "helper_scr_version": 6,
+  "helper_scr_binary_sanity": true,
+  "helper_scr_sha256": "97d30556471b46d8cd86a3848e360fd18250f68e66fabb84bc55db99be5078a5",
+  "main_button_has_GAnswerData": false,
+  "main_button_code": "ShipDeleteCustomShipInfo(Player(),'FHDExpeditionIntroRequest');ShipAddCustomShipInfo(Player(),'FHDExpeditionIntroRequest','NoShow',0,0,0,'','','FHDEXP_INTRO_REQUEST');GotoGov(1);",
+  "dialog_begin": "if(GetShipRuins(Player())>0){if(!PlayerBridge()){if(ShipType(GetShipRuins(Player()))=='SB'||ShipType(GetShipRuins(Player()))=='SSB'){if(ShipFindCustomShipInfoByType(Player(),'FHDExpeditionIntroRequest')>=0){ShipDeleteCustomShipInfo(Player(),'FHDExpeditionIntroRequest');AddDialogInject('FHDExpeditionIntroReturn',CT('Script.FHDExpeditionIntro.IntroText'),CT('Script.FHDExpeditionIntro.ContinueText'),1001,1,0,GenerateCodeStringFromBlock('Script.FHDExpeditionIntro.ContinueAction'));AddDialogInject('FHDExpeditionIntroReturn','',CT('Script.FHDExpeditionIntro.RefuseText'),1000,0,0);}}}}}",
+  "intro_text": "Приветствуем вас, пилот. Хотим предложить вам взаимовыгодное сотрудничество. За скромную плату, которая поможет развитию нашей научной базы и принесёт пользу обеим сторонам, мы готовы предоставить услуги наших лучших экспедиторов. Вы оплачиваете работу профессионалов, которые будут следить за вашими исследовательскими зондами, организовывать исследования незаселённых миров и обеспечивать грузовую перевозку найденных предметов на нашу станцию. Мы берём на себя сопровождение экспедиции и доставку находок. Желаете продолжить?",
+  "continue_action": "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.Open'));",
+  "refuse_action": "none; empty return dialog only"
+}

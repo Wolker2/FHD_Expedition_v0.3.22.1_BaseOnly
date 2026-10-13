@@ -1,0 +1,64 @@
+{
+  "version": "0.3.31 IntroOnlyChoices",
+  "scr_version": 6,
+  "scr_size": 1949,
+  "global_code": "GRun();",
+  "locals": [
+    [
+      "FHDExpIntro_Star",
+      2,
+      0
+    ],
+    [
+      "FHDExpIntro_Planet",
+      2,
+      0
+    ],
+    [
+      "FHDExpeditionIntroDialog",
+      1,
+      0
+    ]
+  ],
+  "parsed_to_eof": true,
+  "player_group_add_player": true,
+  "dialog_begin_uses_override": true,
+  "dialog_begin_deletes_one_shot_flag": true,
+  "dialogs": [
+    [
+      "FHDExpeditionIntroDialog",
+      "DChange(0);"
+    ]
+  ],
+  "dialog_messages": [
+    [
+      "",
+      "DText(CT('Script.FHDExpeditionIntro.IntroText'));DAdd(0);DAdd(1);"
+    ]
+  ],
+  "dialog_answers": [
+    [
+      "",
+      "DAnswer('restart~'+CT('Script.FHDExpeditionIntro.ContinueText'));",
+      "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpeditionIntro.ContinueAction'));"
+    ],
+    [
+      "",
+      "DAnswer('restart~'+CT('Script.FHDExpeditionIntro.RefuseText'));",
+      ""
+    ]
+  ],
+  "exactly_one_dialog": true,
+  "exactly_one_message": true,
+  "exactly_two_answers": true,
+  "message_adds_only_0_1": true,
+  "continue_text_key": true,
+  "continue_action_existing_block": true,
+  "refuse_text_key": true,
+  "refuse_no_action": true,
+  "main_dat_unchanged_from_030": true,
+  "cachedata_unchanged_from_030": true,
+  "lang_dat_unchanged_from_030": true,
+  "main_scr_unchanged_from_030": true,
+  "native_dll_unchanged_from_030": true
+}

@@ -1,0 +1,19 @@
+{
+  "version": "0.3.32 WideList Page compatibility fix",
+  "root_cause_from_log": "CustomInterfaceText('Page',...) fails because object Page is not present in the runtime-loaded FHDExpeditionList form.",
+  "old_fill_008": "CustomInterfaceText('Title',ShipCustomShipInfoTextData(Player(),menu,1));",
+  "old_fill_009": "CustomInterfaceText('Page','Страница '+(page+1)+' / '+pages+' — нажмите + у нужной строки');",
+  "new_fill_008": "CustomInterfaceText('Title',ShipCustomShipInfoTextData(Player(),menu,1)+' — Страница '+(page+1)+' / '+pages);",
+  "new_fill_009": "int fhdPageCompat=0;",
+  "page_runtime_call_removed": true,
+  "lang_dat_roundtrip_decode_ok": true,
+  "lang_dat_seed": 1469567003,
+  "unchanged_from_0.3.31": {
+    "CFG/Main.dat": true,
+    "CFG/CacheData.dat": true,
+    "DATA/Script/FHD_Expedition.scr": true,
+    "DATA/Script/FHD_Expedition_Intro.scr": true,
+    "DATA/FHDExpeditionNative.dll": true
+  },
+  "lang_dat_sha256": "6187c1f068aa9e02fb34768c260061f17e8489939cf33affab5609c9458ea3e9"
+}

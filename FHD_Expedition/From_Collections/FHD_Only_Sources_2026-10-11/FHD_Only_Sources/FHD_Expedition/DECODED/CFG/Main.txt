@@ -1,0 +1,2210 @@
+BV ^{
+    OnLoad ^{
+        Runtime ^{
+            FHDExpeditionBootstrap=if(ShipFindCustomShipInfoByType(Player(),'FHDExpeditionCore')==-1)ShipAddCustomShipInfo(Player(),'FHDExpeditionCore','NoShow');
+        }
+    }
+    OnStart ^{
+        0DayScripts ^{
+            FHDExpeditionBootstrap=if(ShipFindCustomShipInfoByType(Player(),'FHDExpeditionCore')==-1)ShipAddCustomShipInfo(Player(),'FHDExpeditionCore','NoShow');
+        }
+    }
+}
+Data ^{
+    Script ^{
+        FHD_Expedition=1,Script.FHD_Expedition
+        FHD_Expedition_Intro=1,Script.FHD_Expedition_Intro
+    }
+    ScriptLibs ^{
+        FHDExpeditionNative ^{
+            DeployProbe=int,DeployProbe,dword,int,dword
+            FHDExpeditionNativeInit=int,FHDExpeditionNativeInit,dword
+            FindProbeById=dword,FindProbeById,int
+            Path=Mods\FHD_MODS\FHD_Expedition\DATA\FHDExpeditionNative.dll
+            RecoverIdleProbe=dword,RecoverIdleProbe
+            RecoverProbe=int,RecoverProbe,dword
+        }
+    }
+}
+ML ^{
+    FHDExpeditionList ^{
+        Border=0,0,1024,768
+        CodeBeforeRun ~{
+            001=int screenX=GetGameOptions('ResolutionX');
+            002=int screenY=GetGameOptions('ResolutionY');
+            003=CustomInterfaceSize('MainPanel',screenX,screenY);
+            004=CustomInterfaceSize('BGBuf',screenX,screenY);
+            005=CustomInterfacePos('Window',(screenX-960)/2,(screenY-620)/2);
+            006=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.FillWideList'));
+            007=CustomInterfacePos('FHDExpeditionHUD2',(screenX-1003)/2,(screenY-724)/2);
+        }
+        Panel ^{
+            GraphBuf ^{
+                Name=BGBuf
+                Pos=0,0,9
+                Size=1024,768
+            }
+            Image ~{
+                Image=GI,Bm.FHDExpedition.HUD2
+                MouseBlocking=False
+                Name=FHDExpeditionHUD2
+                Pos=0,0,-1
+                Size=1003,724
+            }
+            Name=MainPanel
+            Panel ^{
+                Frame ^{
+                    Color=70,130,150
+                    ColorFill=15,26,38
+                    Fill=True
+                    Kind=Rect
+                    Name=Backdrop
+                    Pos=0,0,3
+                    Size=960,630
+                }
+                GraphButton ^{
+                    ImageDown=GI,Bm.FormShip2.2HoldLeftD
+                    ImageNormal=GI,Bm.FormShip2.2HoldLeftN
+                    ImageNormalA=GI,Bm.FormShip2.2HoldLeftA
+                    Kind=Normal
+                    KindHit=Graph
+                    Name=Prev
+                    OnPressCode ~{
+                        001=CloseCustomForm(2);
+                    }
+                    Pos=22,568,-3
+                    Size=20,36
+                    Style=Style.GB.SoundNormal
+                    UpOnlyDown=True
+                }
+                GraphButton ^{
+                    ImageDown=GI,Bm.FormShip2.2HoldRightD
+                    ImageNormal=GI,Bm.FormShip2.2HoldRightN
+                    ImageNormalA=GI,Bm.FormShip2.2HoldRightA
+                    Kind=Normal
+                    KindHit=Graph
+                    Name=Next
+                    OnPressCode ~{
+                        001=CloseCustomForm(3);
+                    }
+                    Pos=348,568,-3
+                    Size=20,36
+                    Style=Style.GB.SoundNormal
+                    UpOnlyDown=True
+                }
+                GraphButton ^{
+                    ImageDown=GI,Bm.FormCount2.2CloseD
+                    ImageNormal=GI,Bm.FormCount2.2CloseN
+                    ImageNormalA=GI,Bm.FormCount2.2CloseA
+                    Kind=Normal
+                    KindHit=Graph
+                    Name=Cancel
+                    OnPressCode ~{
+                        001=CloseCustomForm(1);
+                    }
+                    Pos=895,586,-3
+                    Size=48,21
+                    Style=Style.GB.SoundNormal
+                    UpOnlyDown=True
+                }
+                GraphButton ^{
+                    ImageDown=GI,Bm.FormCount2.2OkD
+                    ImageNormal=GI,Bm.FormCount2.2OkN
+                    ImageNormalA=GI,Bm.FormCount2.2OkA
+                    Kind=Normal
+                    KindHit=Graph
+                    Name=Done
+                    OnPressCode ~{
+                        001=CloseCustomForm(18);
+                    }
+                    Pos=802,586,-3
+                    Size=48,21
+                    Style=Style.GB.SoundNormal
+                    UpOnlyDown=True
+                }
+                Label ^{
+                    AlignX=Left
+                    AlignY=CenterEx
+                    Font=Font.2Ranger
+                    Name=Title
+                    Pos=22,10,-2
+                    Size=916,32
+                    TextColor=230,240,245
+                }
+                Label ^{
+                    AlignX=Left
+                    AlignY=CenterEx
+                    Font=Font.2Normal
+                    Name=Page
+                    Pos=22,46,-2
+                    Size=916,26
+                    TextColor=230,240,245
+                }
+                Label ^{
+                    AlignX=Left
+                    AlignY=CenterEx
+                    Font=Font.2Small
+                    Name=Hint
+                    Pos=22,526,-2
+                    Size=916,26
+                    Text=FHDExpeditionUI.Hint
+                    TextColor=230,240,245
+                }
+                Label ^{
+                    AlignX=Left
+                    AlignY=CenterEx
+                    Font=Font.2Normal
+                    Name=PrevCaption
+                    Pos=50,564,-2
+                    Size=170,29
+                    Text=FHDExpeditionUI.PrevCaption
+                    TextColor=230,240,245
+                }
+                Label ^{
+                    AlignX=Left
+                    AlignY=CenterEx
+                    Font=Font.2Normal
+                    Name=NextCaption
+                    Pos=377,564,-2
+                    Size=180,29
+                    Text=FHDExpeditionUI.NextCaption
+                    TextColor=230,240,245
+                }
+                Label ^{
+                    AlignX=Left
+                    AlignY=CenterEx
+                    Font=Font.2Normal
+                    Name=DoneCaption
+                    Pos=620,564,-2
+                    Size=120,29
+                    Text=FHDExpeditionUI.DoneCaption
+                    TextColor=230,240,245
+                }
+                Name=Window
+                Panel ^{
+                    Label ^{
+                        AlignX=Left
+                        AlignY=CenterEx
+                        Font=Font.2SmallBold
+                        Name=PlanetHeads0
+                        Pos=46,0,-2
+                        Size=365,26
+                        Text=FHDExpeditionUI.PlanetHeads0
+                        TextColor=230,240,245
+                    }
+                    Label ^{
+                        AlignX=Left
+                        AlignY=CenterEx
+                        Font=Font.2SmallBold
+                        Name=PlanetHeads1
+                        Pos=416,0,-2
+                        Size=170,26
+                        Text=FHDExpeditionUI.PlanetHeads1
+                        TextColor=230,240,245
+                    }
+                    Label ^{
+                        AlignX=Left
+                        AlignY=CenterEx
+                        Font=Font.2SmallBold
+                        Name=PlanetHeads2
+                        Pos=591,0,-2
+                        Size=170,26
+                        Text=FHDExpeditionUI.PlanetHeads2
+                        TextColor=230,240,245
+                    }
+                    Label ^{
+                        AlignX=Left
+                        AlignY=CenterEx
+                        Font=Font.2SmallBold
+                        Name=PlanetHeads3
+                        Pos=766,0,-2
+                        Size=174,26
+                        Text=FHDExpeditionUI.PlanetHeads3
+                        TextColor=230,240,245
+                    }
+                    Name=PlanetHeads
+                    Pos=0,78,-1
+                    Size=950,26
+                }
+                Panel ^{
+                    Label ^{
+                        AlignX=Left
+                        AlignY=CenterEx
+                        Font=Font.2SmallBold
+                        Name=ProbeHeads0
+                        Pos=46,0,-2
+                        Size=75,26
+                        Text=FHDExpeditionUI.ProbeHeads0
+                        TextColor=230,240,245
+                    }
+                    Label ^{
+                        AlignX=Left
+                        AlignY=CenterEx
+                        Font=Font.2SmallBold
+                        Name=ProbeHeads1
+                        Pos=126,0,-2
+                        Size=300,26
+                        Text=FHDExpeditionUI.ProbeHeads1
+                        TextColor=230,240,245
+                    }
+                    Label ^{
+                        AlignX=Left
+                        AlignY=CenterEx
+                        Font=Font.2SmallBold
+                        Name=ProbeHeads2
+                        Pos=431,0,-2
+                        Size=90,26
+                        Text=FHDExpeditionUI.ProbeHeads2
+                        TextColor=230,240,245
+                    }
+                    Label ^{
+                        AlignX=Left
+                        AlignY=CenterEx
+                        Font=Font.2SmallBold
+                        Name=ProbeHeads3
+                        Pos=526,0,-2
+                        Size=133,26
+                        Text=FHDExpeditionUI.ProbeHeads3
+                        TextColor=230,240,245
+                    }
+                    Label ^{
+                        AlignX=Left
+                        AlignY=CenterEx
+                        Font=Font.2SmallBold
+                        Name=ProbeHeads4
+                        Pos=664,0,-2
+                        Size=133,26
+                        Text=FHDExpeditionUI.ProbeHeads4
+                        TextColor=230,240,245
+                    }
+                    Label ^{
+                        AlignX=Left
+                        AlignY=CenterEx
+                        Font=Font.2SmallBold
+                        Name=ProbeHeads5
+                        Pos=802,0,-2
+                        Size=138,26
+                        Text=FHDExpeditionUI.ProbeHeads5
+                        TextColor=230,240,245
+                    }
+                    Name=ProbeHeads
+                    Pos=0,78,-1
+                    Size=950,26
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose0
+                        OnPressCode ~{
+                            001=CloseCustomForm(4);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row0
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText0
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain0
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet0C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet0C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet0C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet0C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet0
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe0C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe0C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe0C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe0C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe0C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe0C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe0
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,108,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose1
+                        OnPressCode ~{
+                            001=CloseCustomForm(5);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row1
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText1
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain1
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet1C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet1C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet1C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet1C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet1
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe1C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe1C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe1C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe1C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe1C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe1C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe1
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,137,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose2
+                        OnPressCode ~{
+                            001=CloseCustomForm(6);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row2
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText2
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain2
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet2C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet2C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet2C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet2C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet2
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe2C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe2C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe2C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe2C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe2C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe2C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe2
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,166,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose3
+                        OnPressCode ~{
+                            001=CloseCustomForm(7);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row3
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText3
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain3
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet3C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet3C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet3C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet3C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet3
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe3C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe3C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe3C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe3C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe3C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe3C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe3
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,195,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose4
+                        OnPressCode ~{
+                            001=CloseCustomForm(8);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row4
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText4
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain4
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet4C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet4C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet4C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet4C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet4
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe4C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe4C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe4C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe4C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe4C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe4C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe4
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,224,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose5
+                        OnPressCode ~{
+                            001=CloseCustomForm(9);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row5
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText5
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain5
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet5C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet5C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet5C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet5C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet5
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe5C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe5C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe5C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe5C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe5C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe5C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe5
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,253,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose6
+                        OnPressCode ~{
+                            001=CloseCustomForm(10);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row6
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText6
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain6
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet6C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet6C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet6C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet6C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet6
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe6C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe6C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe6C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe6C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe6C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe6C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe6
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,282,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose7
+                        OnPressCode ~{
+                            001=CloseCustomForm(11);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row7
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText7
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain7
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet7C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet7C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet7C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet7C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet7
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe7C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe7C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe7C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe7C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe7C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe7C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe7
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,311,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose8
+                        OnPressCode ~{
+                            001=CloseCustomForm(12);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row8
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText8
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain8
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet8C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet8C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet8C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet8C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet8
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe8C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe8C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe8C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe8C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe8C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe8C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe8
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,340,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose9
+                        OnPressCode ~{
+                            001=CloseCustomForm(13);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row9
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText9
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain9
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet9C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet9C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet9C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet9C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet9
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe9C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe9C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe9C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe9C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe9C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe9C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe9
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,369,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose10
+                        OnPressCode ~{
+                            001=CloseCustomForm(14);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row10
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText10
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain10
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet10C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet10C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet10C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet10C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet10
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe10C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe10C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe10C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe10C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe10C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe10C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe10
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,398,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose11
+                        OnPressCode ~{
+                            001=CloseCustomForm(15);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row11
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText11
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain11
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet11C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet11C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet11C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet11C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet11
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe11C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe11C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe11C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe11C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe11C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe11C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe11
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,427,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose12
+                        OnPressCode ~{
+                            001=CloseCustomForm(16);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row12
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText12
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain12
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet12C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet12C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet12C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet12C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet12
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe12C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe12C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe12C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe12C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe12C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe12C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe12
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,456,-1
+                    Size=950,29
+                }
+                Panel ^{
+                    GraphButton ^{
+                        ImageDown=GI,Bm.FormCount2.2AddD
+                        ImageNormal=GI,Bm.FormCount2.2AddN
+                        ImageNormalA=GI,Bm.FormCount2.2AddA
+                        Kind=Normal
+                        KindHit=Rect
+                        Name=Choose13
+                        OnPressCode ~{
+                            001=CloseCustomForm(17);
+                        }
+                        Pos=17,4,-3
+                        Size=21,21
+                        Style=Style.GB.SoundNormal
+                        UpOnlyDown=True
+                    }
+                    Name=Row13
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Small
+                            Name=PlainText13
+                            Pos=46,0,-2
+                            Size=894,29
+                            TextColor=230,240,245
+                        }
+                        Name=Plain13
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet13C0
+                            Pos=46,0,-2
+                            Size=365,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet13C1
+                            Pos=416,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet13C2
+                            Pos=591,0,-2
+                            Size=170,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Planet13C3
+                            Pos=766,0,-2
+                            Size=174,29
+                            TextColor=230,240,245
+                        }
+                        Name=Planet13
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Panel ^{
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe13C0
+                            Pos=46,0,-2
+                            Size=75,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe13C1
+                            Pos=126,0,-2
+                            Size=300,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe13C2
+                            Pos=431,0,-2
+                            Size=90,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe13C3
+                            Pos=526,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe13C4
+                            Pos=664,0,-2
+                            Size=133,29
+                            TextColor=230,240,245
+                        }
+                        Label ^{
+                            AlignX=Left
+                            AlignY=CenterEx
+                            Font=Font.2Normal
+                            Name=Probe13C5
+                            Pos=802,0,-2
+                            Size=138,29
+                            TextColor=230,240,245
+                        }
+                        Name=Probe13
+                        Pos=0,0,0
+                        Size=950,29
+                    }
+                    Pos=0,485,-1
+                    Size=950,29
+                }
+                Pos=0,0,0
+                Size=960,630
+                Style=Style.Window.2Simple
+            }
+            Pos=0,0,0
+            Size=1024,768
+        }
+    }
+    RuinsTalk ^{
+        Panel ^{
+            FHDExpeditionButtonNode ^{
+                Panel ^{
+                    Active=False
+                    GraphButton ^{
+                        Active=True
+                        ImageDown=GI,Bm.FHDExpedition.ExpedD
+                        ImageNormal=GI,Bm.FHDExpedition.ExpedN
+                        ImageNormalA=GI,Bm.FHDExpedition.ExpedA
+                        Kind=Normal
+                        KindHit=Rect
+                        MouseBlocking=True
+                        MouseBlockingTest=False
+                        Name=FHDExpeditionButtonAction
+                        OnPressCode ^{
+                            00=ShipDeleteCustomShipInfo(Player(),'FHDExpeditionIntroRequest');ShipAddCustomShipInfo(Player(),'FHDExpeditionIntroRequest','NoShow',0,0,0,'','','FHDEXP_INTRO_REQUEST');FormChange('RuinsTalk');
+                        }
+                        Pos=0,0,-1
+                        Size=131,40
+                        Style=Style.GB.SoundNormal
+                    }
+                    Name=FHDExpeditionButton
+                    Pos=197,656,121
+                    PosAutoCorrection=False
+                    PosAutoCorrectionXCoef=0.5
+                    PosAutoCorrectionYCoef=0.0
+                    Size=131,40
+                }
+            }
+        }
+    }
+}

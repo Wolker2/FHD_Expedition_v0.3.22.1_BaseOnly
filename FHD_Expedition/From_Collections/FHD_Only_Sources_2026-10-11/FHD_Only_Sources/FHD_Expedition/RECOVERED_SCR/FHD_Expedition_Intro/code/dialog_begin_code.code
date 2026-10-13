@@ -1,0 +1,1 @@
+if(GetShipRuins(Player())>0){if(!PlayerBridge()){if(ShipType(GetShipRuins(Player()))=='SB'||ShipType(GetShipRuins(Player()))=='SSB'){if(ShipFindCustomShipInfoByType(Player(),'FHDExpeditionIntroRequest')>=0){ShipDeleteCustomShipInfo(Player(),'FHDExpeditionIntroRequest');AddDialogOverride('FHDExpeditionIntroDialog',1000000,0);}}}}}

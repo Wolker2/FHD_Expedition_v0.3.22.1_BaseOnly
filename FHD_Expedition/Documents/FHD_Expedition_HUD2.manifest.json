@@ -1,0 +1,101 @@
+{
+  "schema": "srhd-modkit-manifest-v1",
+  "source": "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition",
+  "root_name": "FHD_Expedition",
+  "prefix": "FHD_MODS/FHD_Expedition",
+  "exclude": [],
+  "strip_sources": false,
+  "file_count": 16,
+  "total_size": 19092717,
+  "stage_verified": true,
+  "audit_coverage_complete": false,
+  "audit_operational_failure": false,
+  "files": [
+    {
+      "path": "ModuleInfo.txt",
+      "size": 1018,
+      "sha256": "6d81c14b15deeda4774c1bc4d4f15cbb3db257d700ecb31eca7c4ac45912b5c0"
+    },
+    {
+      "path": "VALIDATION_MainPreserveFix.json",
+      "size": 1632,
+      "sha256": "470634f0369fa6b8725317fe6f53171dd4a8c9a3051ac51f51530d46d1b56e34"
+    },
+    {
+      "path": "╨¡╨║╤ü╨┐╨╡╨┤╨╕╤å╨╕╤Å 2.bmp",
+      "size": 6220854,
+      "sha256": "42ac41780c3e7b47a037e15af9ba11705f2fe1010863efbac84941e313e4bd32"
+    },
+    {
+      "path": "╨¡╨║╤ü╨┐╨╡╨┤╨╕╤å╨╕╤Å.bmp",
+      "size": 6220854,
+      "sha256": "d8ef0920d3d627a6091ec2442f640b98b3b04925d598a867f4bb5c030da4dd0c"
+    },
+    {
+      "path": "╨¡╨║╤ü╨┐╨╡╨┤╨╕╤å╨╕╤Å3.bmp",
+      "size": 6220854,
+      "sha256": "7869fc95625f97b63bcf810478b7a30c15d8942fd8b24074a8155754a27f8062"
+    },
+    {
+      "path": "CFG/CacheData.dat",
+      "size": 183,
+      "sha256": "c8ab210118301758ea9db331cd9c806464d747c88b1a9bf24ee48deb7bf316a5"
+    },
+    {
+      "path": "CFG/Main.dat",
+      "size": 3404,
+      "sha256": "d6e71cbb208eea8a355e38da6be1b70ab15e3945b089799819a1e0a1f75fcea4"
+    },
+    {
+      "path": "CFG/Rus/Lang.dat",
+      "size": 13285,
+      "sha256": "96f93a6036e71c323bb71bea5752adeaf99df7474b5b25e15f12808a7508cdd5"
+    },
+    {
+      "path": "DATA/FHDExpeditionNative.dll",
+      "size": 3072,
+      "sha256": "543bf09bf5c7e308eafbb2e5606320b812f9727ab52319a27151979f2594b8db"
+    },
+    {
+      "path": "DATA/FHDExpeditionNative.lib",
+      "size": 2428,
+      "sha256": "90a5aca43bf403472e1b93988c6a5570175b93bf1c89eaae30e927b1f7e1716c"
+    },
+    {
+      "path": "DATA/Script/FHD_Expedition.scr",
+      "size": 1118,
+      "sha256": "3f23c361cc899c47ccf46677e7d47e015da79c2a5e10c7355a2f6121f316045b"
+    },
+    {
+      "path": "DATA/Script/FHD_Expedition_Intro.scr",
+      "size": 1949,
+      "sha256": "e972ecd789ff34a1f4e845a7a5c36d9a33ffea0eb04a973a2fce93ae509ec882"
+    },
+    {
+      "path": "DATA/UI/2ExpedA.gi",
+      "size": 10013,
+      "sha256": "34b3b88eb2fea15b2271de12b265765afc13fcd3c4628ed9270f44b2c23f4172"
+    },
+    {
+      "path": "DATA/UI/2ExpedD.gi",
+      "size": 10802,
+      "sha256": "5a98013a815e9f657d1b0c5cb8a571c6f122ccd1c44e1e5eb16be89ebc5aa512"
+    },
+    {
+      "path": "DATA/UI/2ExpedN.gi",
+      "size": 10339,
+      "sha256": "6e5c427c4c69ae81b3c0491ce72523721f5b155fbcdead8ec7c8211be8187ada"
+    },
+    {
+      "path": "DATA/UI/HUD2.gi",
+      "size": 370912,
+      "sha256": "21d967cbf5903e73ede1e8517fb02369316465b9cd93d5eead91dc04996953fd"
+    }
+  ],
+  "archive": {
+    "name": "FHD_Expedition_HUD2.zip",
+    "size": 4804719,
+    "sha256": "290bd7e12cdacc9b87da624249187e6491614a7150d2f351f53d62f5f08037c5",
+    "verified": true
+  }
+}

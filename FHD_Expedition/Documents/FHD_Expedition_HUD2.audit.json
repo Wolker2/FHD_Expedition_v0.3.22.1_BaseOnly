@@ -1,0 +1,342 @@
+{
+  "schema": "srhd-modkit-audit-v1",
+  "target": "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition",
+  "profile": "release",
+  "coverage_complete": false,
+  "operational_failure": false,
+  "allowed": [],
+  "summary": {
+    "error": 0,
+    "warning": 3,
+    "info": 2,
+    "suppressed": 0,
+    "checks": 13
+  },
+  "checks": [
+    {
+      "name": "structure",
+      "status": "passed",
+      "complete": true,
+      "checked_files": [
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/CacheData.dat",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Main.dat",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Rus",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Rus/Lang.dat",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/FHDExpeditionNative.dll",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/FHDExpeditionNative.lib",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/Script",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/Script/FHD_Expedition.scr",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/Script/FHD_Expedition_Intro.scr",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI/2ExpedA.gi",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI/2ExpedD.gi",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI/2ExpedN.gi",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI/HUD2.gi",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/ModuleInfo.txt",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/VALIDATION_MainPreserveFix.json",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/╨¡╨║╤ü╨┐╨╡╨┤╨╕╤å╨╕╤Å 2.bmp",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/╨¡╨║╤ü╨┐╨╡╨┤╨╕╤å╨╕╤Å.bmp",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/╨¡╨║╤ü╨┐╨╡╨┤╨╕╤å╨╕╤Å3.bmp"
+      ],
+      "details": {},
+      "issues": []
+    },
+    {
+      "name": "workspace-artifacts",
+      "status": "passed",
+      "complete": true,
+      "checked_files": [],
+      "details": {},
+      "issues": []
+    },
+    {
+      "name": "format-signatures",
+      "status": "passed",
+      "complete": true,
+      "checked_files": [
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/╨¡╨║╤ü╨┐╨╡╨┤╨╕╤å╨╕╤Å 2.bmp",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/╨¡╨║╤ü╨┐╨╡╨┤╨╕╤å╨╕╤Å.bmp",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/╨¡╨║╤ü╨┐╨╡╨┤╨╕╤å╨╕╤Å3.bmp",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/FHDExpeditionNative.dll",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI/2ExpedA.gi",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI/2ExpedD.gi",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI/2ExpedN.gi",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI/HUD2.gi"
+      ],
+      "details": {},
+      "issues": []
+    },
+    {
+      "name": "unknown-formats",
+      "status": "unsupported",
+      "complete": false,
+      "checked_files": [
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/FHDExpeditionNative.lib"
+      ],
+      "details": {
+        "formats": {
+          ".lib": 1
+        },
+        "handling": "passthrough-sha256",
+        "reason": "Файлы будут сохранены побайтно, но их внутренняя структура не проверяется."
+      },
+      "issues": []
+    },
+    {
+      "name": "python-sources",
+      "status": "skipped",
+      "complete": true,
+      "checked_files": [],
+      "details": {
+        "reason": "Python-файлы не найдены"
+      },
+      "issues": []
+    },
+    {
+      "name": "native-loader",
+      "status": "skipped",
+      "complete": true,
+      "checked_files": [],
+      "details": {
+        "reason": "XenoNativeLoader plugin/manifest не найден"
+      },
+      "issues": []
+    },
+    {
+      "name": "blockpar-dat",
+      "status": "passed",
+      "complete": true,
+      "checked_files": [
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/CacheData.dat",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Main.dat",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Rus/Lang.dat"
+      ],
+      "details": {
+        "scope": "all"
+      },
+      "issues": []
+    },
+    {
+      "name": "game-text",
+      "status": "issues",
+      "complete": true,
+      "checked_files": [
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/ModuleInfo.txt",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Rus/Lang.dat"
+      ],
+      "details": {},
+      "issues": [
+        {
+          "severity": "warning",
+          "code": "game-text-limited-font-glyph",
+          "message": "Символ '—' (U+2014) кодируется Windows-1251, но присутствует не во всех шрифтах и текстовых поверхностях SRHD. Для надёжного отображения используйте '-'",
+          "path": "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Rus/Lang.dat",
+          "mod": "FHD_Expedition",
+          "validator": "game-text",
+          "location": "BlockPar/FHDExpeditionUI/Hint",
+          "evidence": "В колонках поверхности: исследовано / всего. Выбор зондов — следующим шагом.",
+          "remediation": null,
+          "suppressed": false,
+          "suppression": null
+        },
+        {
+          "severity": "warning",
+          "code": "game-text-limited-font-glyph",
+          "message": "Символ '—' (U+2014) кодируется Windows-1251, но присутствует не во всех шрифтах и текстовых поверхностях SRHD. Для надёжного отображения используйте '-'",
+          "path": "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Rus/Lang.dat",
+          "mod": "FHD_Expedition",
+          "validator": "game-text",
+          "location": "BlockPar/Script/FHDExpedition/FillWideList/009",
+          "evidence": "CustomInterfaceText('Page','Страница '+(page+1)+' / '+pages+' — нажмите + у нужной строки');",
+          "remediation": null,
+          "suppressed": false,
+          "suppression": null
+        },
+        {
+          "severity": "warning",
+          "code": "game-text-limited-font-glyph",
+          "message": "Символ '—' (U+2014) кодируется Windows-1251, но присутствует не во всех шрифтах и текстовых поверхностях SRHD. Для надёжного отображения используйте '-'",
+          "path": "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Rus/Lang.dat",
+          "mod": "FHD_Expedition",
+          "validator": "game-text",
+          "location": "BlockPar/Script/FHDExpedition/WideMultiList/029",
+          "evidence": "ShipCustomShipInfoTextData(0,multiMenu,1,title+' — выбрано: '+multiSelectedCount);",
+          "remediation": null,
+          "suppressed": false,
+          "suppression": null
+        }
+      ]
+    },
+    {
+      "name": "scripts",
+      "status": "issues",
+      "complete": false,
+      "checked_files": [
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/Script/FHD_Expedition.scr",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/Script/FHD_Expedition_Intro.scr",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Main.dat",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/CacheData.dat",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Rus/Lang.dat"
+      ],
+      "details": {
+        "scr": 2,
+        "rson": 0,
+        "valid_rson": 0,
+        "semantic_uncovered_scr": [
+          "FHD_Expedition.scr",
+          "FHD_Expedition_Intro.scr"
+        ],
+        "imported_functions": {
+          "references": 0,
+          "dynamic_references": 0,
+          "complete": true,
+          "checked_dlls": [],
+          "issues": []
+        }
+      },
+      "issues": [
+        {
+          "severity": "info",
+          "code": "scr-semantic-analysis-unavailable",
+          "message": "FHD_Expedition.scr проверен только бинарно; соответствующий валидный RSON с тем же ScriptName не найден",
+          "path": "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/Script/FHD_Expedition.scr",
+          "mod": "FHD_Expedition",
+          "validator": "scripts",
+          "location": null,
+          "evidence": null,
+          "remediation": null,
+          "suppressed": false,
+          "suppression": null
+        },
+        {
+          "severity": "info",
+          "code": "scr-semantic-analysis-unavailable",
+          "message": "FHD_Expedition_Intro.scr проверен только бинарно; соответствующий валидный RSON с тем же ScriptName не найден",
+          "path": "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/Script/FHD_Expedition_Intro.scr",
+          "mod": "FHD_Expedition",
+          "validator": "scripts",
+          "location": null,
+          "evidence": null,
+          "remediation": null,
+          "suppressed": false,
+          "suppression": null
+        }
+      ]
+    },
+    {
+      "name": "text-quests",
+      "status": "skipped",
+      "complete": true,
+      "checked_files": [],
+      "details": {
+        "reason": "QM/QMM не найдены"
+      },
+      "issues": []
+    },
+    {
+      "name": "quest-cards",
+      "status": "skipped",
+      "complete": true,
+      "checked_files": [],
+      "details": {
+        "reason": "QM/QMM не найдены"
+      },
+      "issues": []
+    },
+    {
+      "name": "quest-media",
+      "status": "skipped",
+      "complete": true,
+      "checked_files": [],
+      "details": {
+        "reason": "QM/QMM не найдены"
+      },
+      "issues": []
+    },
+    {
+      "name": "resource-integrity",
+      "status": "passed",
+      "complete": true,
+      "checked_files": [
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI/2ExpedA.gi",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI/2ExpedD.gi",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI/2ExpedN.gi",
+        "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/UI/HUD2.gi"
+      ],
+      "details": {
+        "unsupported": []
+      },
+      "issues": []
+    }
+  ],
+  "mods": [],
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "game-text-limited-font-glyph",
+      "message": "Символ '—' (U+2014) кодируется Windows-1251, но присутствует не во всех шрифтах и текстовых поверхностях SRHD. Для надёжного отображения используйте '-'",
+      "path": "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Rus/Lang.dat",
+      "mod": "FHD_Expedition",
+      "validator": "game-text",
+      "location": "BlockPar/FHDExpeditionUI/Hint",
+      "evidence": "В колонках поверхности: исследовано / всего. Выбор зондов — следующим шагом.",
+      "remediation": null,
+      "suppressed": false,
+      "suppression": null
+    },
+    {
+      "severity": "warning",
+      "code": "game-text-limited-font-glyph",
+      "message": "Символ '—' (U+2014) кодируется Windows-1251, но присутствует не во всех шрифтах и текстовых поверхностях SRHD. Для надёжного отображения используйте '-'",
+      "path": "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Rus/Lang.dat",
+      "mod": "FHD_Expedition",
+      "validator": "game-text",
+      "location": "BlockPar/Script/FHDExpedition/FillWideList/009",
+      "evidence": "CustomInterfaceText('Page','Страница '+(page+1)+' / '+pages+' — нажмите + у нужной строки');",
+      "remediation": null,
+      "suppressed": false,
+      "suppression": null
+    },
+    {
+      "severity": "warning",
+      "code": "game-text-limited-font-glyph",
+      "message": "Символ '—' (U+2014) кодируется Windows-1251, но присутствует не во всех шрифтах и текстовых поверхностях SRHD. Для надёжного отображения используйте '-'",
+      "path": "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/CFG/Rus/Lang.dat",
+      "mod": "FHD_Expedition",
+      "validator": "game-text",
+      "location": "BlockPar/Script/FHDExpedition/WideMultiList/029",
+      "evidence": "ShipCustomShipInfoTextData(0,multiMenu,1,title+' — выбрано: '+multiSelectedCount);",
+      "remediation": null,
+      "suppressed": false,
+      "suppression": null
+    },
+    {
+      "severity": "info",
+      "code": "scr-semantic-analysis-unavailable",
+      "message": "FHD_Expedition.scr проверен только бинарно; соответствующий валидный RSON с тем же ScriptName не найден",
+      "path": "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/Script/FHD_Expedition.scr",
+      "mod": "FHD_Expedition",
+      "validator": "scripts",
+      "location": null,
+      "evidence": null,
+      "remediation": null,
+      "suppressed": false,
+      "suppression": null
+    },
+    {
+      "severity": "info",
+      "code": "scr-semantic-analysis-unavailable",
+      "message": "FHD_Expedition_Intro.scr проверен только бинарно; соответствующий валидный RSON с тем же ScriptName не найден",
+      "path": "/workspace/scratch/261c9b54e6ff/work_hud2/FHD_Expedition/DATA/Script/FHD_Expedition_Intro.scr",
+      "mod": "FHD_Expedition",
+      "validator": "scripts",
+      "location": null,
+      "evidence": null,
+      "remediation": null,
+      "suppressed": false,
+      "suppression": null
+    }
+  ]
+}

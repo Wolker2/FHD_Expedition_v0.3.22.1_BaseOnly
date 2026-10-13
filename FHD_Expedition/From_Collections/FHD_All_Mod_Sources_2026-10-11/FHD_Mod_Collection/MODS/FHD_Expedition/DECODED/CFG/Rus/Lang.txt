@@ -1,0 +1,1000 @@
+FHDExpeditionUI ^{
+    CancelCaption=
+    DoneCaption=
+    Hint=В колонках поверхности: исследовано / всего. Выбор зондов — следующим шагом.
+    NextCaption=Следующая
+    PlanetHeads0=Система / планета
+    PlanetHeads1=Вода
+    PlanetHeads2=Равнины
+    PlanetHeads3=Горы
+    PrevCaption=Предыдущая
+    ProbeHeads0=Откуда
+    ProbeHeads1=Зонд
+    ProbeHeads2=Состояние
+    ProbeHeads3=Вода
+    ProbeHeads4=Равнины
+    ProbeHeads5=Горы
+}
+Script ^{
+    FHDExpedition ^{
+        CollectPlanetFinds ^{
+            001=int result=0;
+            002=if(!planet)exit;
+            003=for(int expeditionFindIndex=PlanetItems(planet)-1;expeditionFindIndex>-1;expeditionFindIndex=expeditionFindIndex-1)
+            004={
+            005=dword expeditionFoundItem=GetItemFromPlanet(planet,expeditionFindIndex);
+            006=if(!expeditionFoundItem)continue;
+            007=if(station)AddItemToStorage(station,expeditionFoundItem);
+            008=else AddItemToShip(Player(),expeditionFoundItem);
+            009=result=result+1;
+            010=}
+        }
+        EnsureController ^{
+            001=if(ShipFindCustomShipInfoByType(Player(),'FHDExpeditionController')<0)ShipAddCustomShipInfo(Player(),'FHDExpeditionController','NoShow',0,0,0,'','','FHDEXP_CONTROLLER');
+        }
+        FillWideList ^{
+            001=int menu=ShipFindCustomShipInfoByType(Player(),'FHDExpeditionMenu');
+            002=if(menu<0){CloseCustomForm();exit;}
+            003=int visible=ShipCustomShipInfoData(Player(),menu,1);
+            004=int page=ShipCustomShipInfoData(Player(),menu,2);
+            005=int pages=ShipCustomShipInfoData(Player(),menu,3);
+            006=int columns=ShipCustomShipInfoTextData(Player(),menu,3);
+            007=str pageRows=ShipCustomShipInfoTextData(Player(),menu,2);
+            008=CustomInterfaceText('Title',ShipCustomShipInfoTextData(Player(),menu,1));
+            009=CustomInterfaceText('Page','Страница '+(page+1)+' / '+pages+' — нажмите + у нужной строки');
+            010=if(page<1)CustomInterfaceState('Prev',2);
+            011=if(page+1>=pages)CustomInterfaceState('Next',2);
+            012=CustomInterfaceState('PlanetHeads',columns==1);
+            013=CustomInterfaceState('ProbeHeads',columns==2 || columns==3);
+            014=if(columns==3)CustomInterfaceText('Hint','Отметьте несколько зондов кнопками + и нажмите ГОТОВО.');
+            015=else if(columns==2)CustomInterfaceText('Hint','В колонках поверхности показаны характеристики зонда.');
+            016=CustomInterfaceState('Done',columns==3);
+            017=CustomInterfaceState('DoneCaption',columns==3);
+            018=if(columns==0)CustomInterfaceText('Hint','Работающие зонды. Закройте окно для возврата на научную базу.');
+            019=CustomInterfaceState('Row0',0<visible);
+            020=if(0<visible)
+            021={
+            022=str row0=GetParFromString(pageRows,'\n',0,0);
+            023=CustomInterfaceState('Plain0',columns==0);
+            024=CustomInterfaceState('Planet0',columns==1);
+            025=CustomInterfaceState('Probe0',columns==2 || columns==3);
+            026=CustomInterfaceText('PlainText0',row0);
+            027=CustomInterfaceText('Planet0C0',GetParFromString(row0,'|',0,1));
+            028=CustomInterfaceText('Planet0C1',GetParFromString(row0,'|',1,1));
+            029=CustomInterfaceText('Planet0C2',GetParFromString(row0,'|',2,1));
+            030=CustomInterfaceText('Planet0C3',GetParFromString(row0,'|',3,1));
+            031=CustomInterfaceText('Probe0C0',GetParFromString(row0,'|',0,1));
+            032=CustomInterfaceText('Probe0C1',GetParFromString(row0,'|',1,1));
+            033=CustomInterfaceText('Probe0C2',GetParFromString(row0,'|',2,1));
+            034=CustomInterfaceText('Probe0C3',GetParFromString(row0,'|',3,1));
+            035=CustomInterfaceText('Probe0C4',GetParFromString(row0,'|',4,1));
+            036=CustomInterfaceText('Probe0C5',GetParFromString(row0,'|',5,1));
+            037=}
+            038=CustomInterfaceState('Row1',1<visible);
+            039=if(1<visible)
+            040={
+            041=str row1=GetParFromString(pageRows,'\n',1,0);
+            042=CustomInterfaceState('Plain1',columns==0);
+            043=CustomInterfaceState('Planet1',columns==1);
+            044=CustomInterfaceState('Probe1',columns==2 || columns==3);
+            045=CustomInterfaceText('PlainText1',row1);
+            046=CustomInterfaceText('Planet1C0',GetParFromString(row1,'|',0,1));
+            047=CustomInterfaceText('Planet1C1',GetParFromString(row1,'|',1,1));
+            048=CustomInterfaceText('Planet1C2',GetParFromString(row1,'|',2,1));
+            049=CustomInterfaceText('Planet1C3',GetParFromString(row1,'|',3,1));
+            050=CustomInterfaceText('Probe1C0',GetParFromString(row1,'|',0,1));
+            051=CustomInterfaceText('Probe1C1',GetParFromString(row1,'|',1,1));
+            052=CustomInterfaceText('Probe1C2',GetParFromString(row1,'|',2,1));
+            053=CustomInterfaceText('Probe1C3',GetParFromString(row1,'|',3,1));
+            054=CustomInterfaceText('Probe1C4',GetParFromString(row1,'|',4,1));
+            055=CustomInterfaceText('Probe1C5',GetParFromString(row1,'|',5,1));
+            056=}
+            057=CustomInterfaceState('Row2',2<visible);
+            058=if(2<visible)
+            059={
+            060=str row2=GetParFromString(pageRows,'\n',2,0);
+            061=CustomInterfaceState('Plain2',columns==0);
+            062=CustomInterfaceState('Planet2',columns==1);
+            063=CustomInterfaceState('Probe2',columns==2 || columns==3);
+            064=CustomInterfaceText('PlainText2',row2);
+            065=CustomInterfaceText('Planet2C0',GetParFromString(row2,'|',0,1));
+            066=CustomInterfaceText('Planet2C1',GetParFromString(row2,'|',1,1));
+            067=CustomInterfaceText('Planet2C2',GetParFromString(row2,'|',2,1));
+            068=CustomInterfaceText('Planet2C3',GetParFromString(row2,'|',3,1));
+            069=CustomInterfaceText('Probe2C0',GetParFromString(row2,'|',0,1));
+            070=CustomInterfaceText('Probe2C1',GetParFromString(row2,'|',1,1));
+            071=CustomInterfaceText('Probe2C2',GetParFromString(row2,'|',2,1));
+            072=CustomInterfaceText('Probe2C3',GetParFromString(row2,'|',3,1));
+            073=CustomInterfaceText('Probe2C4',GetParFromString(row2,'|',4,1));
+            074=CustomInterfaceText('Probe2C5',GetParFromString(row2,'|',5,1));
+            075=}
+            076=CustomInterfaceState('Row3',3<visible);
+            077=if(3<visible)
+            078={
+            079=str row3=GetParFromString(pageRows,'\n',3,0);
+            080=CustomInterfaceState('Plain3',columns==0);
+            081=CustomInterfaceState('Planet3',columns==1);
+            082=CustomInterfaceState('Probe3',columns==2 || columns==3);
+            083=CustomInterfaceText('PlainText3',row3);
+            084=CustomInterfaceText('Planet3C0',GetParFromString(row3,'|',0,1));
+            085=CustomInterfaceText('Planet3C1',GetParFromString(row3,'|',1,1));
+            086=CustomInterfaceText('Planet3C2',GetParFromString(row3,'|',2,1));
+            087=CustomInterfaceText('Planet3C3',GetParFromString(row3,'|',3,1));
+            088=CustomInterfaceText('Probe3C0',GetParFromString(row3,'|',0,1));
+            089=CustomInterfaceText('Probe3C1',GetParFromString(row3,'|',1,1));
+            090=CustomInterfaceText('Probe3C2',GetParFromString(row3,'|',2,1));
+            091=CustomInterfaceText('Probe3C3',GetParFromString(row3,'|',3,1));
+            092=CustomInterfaceText('Probe3C4',GetParFromString(row3,'|',4,1));
+            093=CustomInterfaceText('Probe3C5',GetParFromString(row3,'|',5,1));
+            094=}
+            095=CustomInterfaceState('Row4',4<visible);
+            096=if(4<visible)
+            097={
+            098=str row4=GetParFromString(pageRows,'\n',4,0);
+            099=CustomInterfaceState('Plain4',columns==0);
+            100=CustomInterfaceState('Planet4',columns==1);
+            101=CustomInterfaceState('Probe4',columns==2 || columns==3);
+            102=CustomInterfaceText('PlainText4',row4);
+            103=CustomInterfaceText('Planet4C0',GetParFromString(row4,'|',0,1));
+            104=CustomInterfaceText('Planet4C1',GetParFromString(row4,'|',1,1));
+            105=CustomInterfaceText('Planet4C2',GetParFromString(row4,'|',2,1));
+            106=CustomInterfaceText('Planet4C3',GetParFromString(row4,'|',3,1));
+            107=CustomInterfaceText('Probe4C0',GetParFromString(row4,'|',0,1));
+            108=CustomInterfaceText('Probe4C1',GetParFromString(row4,'|',1,1));
+            109=CustomInterfaceText('Probe4C2',GetParFromString(row4,'|',2,1));
+            110=CustomInterfaceText('Probe4C3',GetParFromString(row4,'|',3,1));
+            111=CustomInterfaceText('Probe4C4',GetParFromString(row4,'|',4,1));
+            112=CustomInterfaceText('Probe4C5',GetParFromString(row4,'|',5,1));
+            113=}
+            114=CustomInterfaceState('Row5',5<visible);
+            115=if(5<visible)
+            116={
+            117=str row5=GetParFromString(pageRows,'\n',5,0);
+            118=CustomInterfaceState('Plain5',columns==0);
+            119=CustomInterfaceState('Planet5',columns==1);
+            120=CustomInterfaceState('Probe5',columns==2 || columns==3);
+            121=CustomInterfaceText('PlainText5',row5);
+            122=CustomInterfaceText('Planet5C0',GetParFromString(row5,'|',0,1));
+            123=CustomInterfaceText('Planet5C1',GetParFromString(row5,'|',1,1));
+            124=CustomInterfaceText('Planet5C2',GetParFromString(row5,'|',2,1));
+            125=CustomInterfaceText('Planet5C3',GetParFromString(row5,'|',3,1));
+            126=CustomInterfaceText('Probe5C0',GetParFromString(row5,'|',0,1));
+            127=CustomInterfaceText('Probe5C1',GetParFromString(row5,'|',1,1));
+            128=CustomInterfaceText('Probe5C2',GetParFromString(row5,'|',2,1));
+            129=CustomInterfaceText('Probe5C3',GetParFromString(row5,'|',3,1));
+            130=CustomInterfaceText('Probe5C4',GetParFromString(row5,'|',4,1));
+            131=CustomInterfaceText('Probe5C5',GetParFromString(row5,'|',5,1));
+            132=}
+            133=CustomInterfaceState('Row6',6<visible);
+            134=if(6<visible)
+            135={
+            136=str row6=GetParFromString(pageRows,'\n',6,0);
+            137=CustomInterfaceState('Plain6',columns==0);
+            138=CustomInterfaceState('Planet6',columns==1);
+            139=CustomInterfaceState('Probe6',columns==2 || columns==3);
+            140=CustomInterfaceText('PlainText6',row6);
+            141=CustomInterfaceText('Planet6C0',GetParFromString(row6,'|',0,1));
+            142=CustomInterfaceText('Planet6C1',GetParFromString(row6,'|',1,1));
+            143=CustomInterfaceText('Planet6C2',GetParFromString(row6,'|',2,1));
+            144=CustomInterfaceText('Planet6C3',GetParFromString(row6,'|',3,1));
+            145=CustomInterfaceText('Probe6C0',GetParFromString(row6,'|',0,1));
+            146=CustomInterfaceText('Probe6C1',GetParFromString(row6,'|',1,1));
+            147=CustomInterfaceText('Probe6C2',GetParFromString(row6,'|',2,1));
+            148=CustomInterfaceText('Probe6C3',GetParFromString(row6,'|',3,1));
+            149=CustomInterfaceText('Probe6C4',GetParFromString(row6,'|',4,1));
+            150=CustomInterfaceText('Probe6C5',GetParFromString(row6,'|',5,1));
+            151=}
+            152=CustomInterfaceState('Row7',7<visible);
+            153=if(7<visible)
+            154={
+            155=str row7=GetParFromString(pageRows,'\n',7,0);
+            156=CustomInterfaceState('Plain7',columns==0);
+            157=CustomInterfaceState('Planet7',columns==1);
+            158=CustomInterfaceState('Probe7',columns==2 || columns==3);
+            159=CustomInterfaceText('PlainText7',row7);
+            160=CustomInterfaceText('Planet7C0',GetParFromString(row7,'|',0,1));
+            161=CustomInterfaceText('Planet7C1',GetParFromString(row7,'|',1,1));
+            162=CustomInterfaceText('Planet7C2',GetParFromString(row7,'|',2,1));
+            163=CustomInterfaceText('Planet7C3',GetParFromString(row7,'|',3,1));
+            164=CustomInterfaceText('Probe7C0',GetParFromString(row7,'|',0,1));
+            165=CustomInterfaceText('Probe7C1',GetParFromString(row7,'|',1,1));
+            166=CustomInterfaceText('Probe7C2',GetParFromString(row7,'|',2,1));
+            167=CustomInterfaceText('Probe7C3',GetParFromString(row7,'|',3,1));
+            168=CustomInterfaceText('Probe7C4',GetParFromString(row7,'|',4,1));
+            169=CustomInterfaceText('Probe7C5',GetParFromString(row7,'|',5,1));
+            170=}
+            171=CustomInterfaceState('Row8',8<visible);
+            172=if(8<visible)
+            173={
+            174=str row8=GetParFromString(pageRows,'\n',8,0);
+            175=CustomInterfaceState('Plain8',columns==0);
+            176=CustomInterfaceState('Planet8',columns==1);
+            177=CustomInterfaceState('Probe8',columns==2 || columns==3);
+            178=CustomInterfaceText('PlainText8',row8);
+            179=CustomInterfaceText('Planet8C0',GetParFromString(row8,'|',0,1));
+            180=CustomInterfaceText('Planet8C1',GetParFromString(row8,'|',1,1));
+            181=CustomInterfaceText('Planet8C2',GetParFromString(row8,'|',2,1));
+            182=CustomInterfaceText('Planet8C3',GetParFromString(row8,'|',3,1));
+            183=CustomInterfaceText('Probe8C0',GetParFromString(row8,'|',0,1));
+            184=CustomInterfaceText('Probe8C1',GetParFromString(row8,'|',1,1));
+            185=CustomInterfaceText('Probe8C2',GetParFromString(row8,'|',2,1));
+            186=CustomInterfaceText('Probe8C3',GetParFromString(row8,'|',3,1));
+            187=CustomInterfaceText('Probe8C4',GetParFromString(row8,'|',4,1));
+            188=CustomInterfaceText('Probe8C5',GetParFromString(row8,'|',5,1));
+            189=}
+            190=CustomInterfaceState('Row9',9<visible);
+            191=if(9<visible)
+            192={
+            193=str row9=GetParFromString(pageRows,'\n',9,0);
+            194=CustomInterfaceState('Plain9',columns==0);
+            195=CustomInterfaceState('Planet9',columns==1);
+            196=CustomInterfaceState('Probe9',columns==2 || columns==3);
+            197=CustomInterfaceText('PlainText9',row9);
+            198=CustomInterfaceText('Planet9C0',GetParFromString(row9,'|',0,1));
+            199=CustomInterfaceText('Planet9C1',GetParFromString(row9,'|',1,1));
+            200=CustomInterfaceText('Planet9C2',GetParFromString(row9,'|',2,1));
+            201=CustomInterfaceText('Planet9C3',GetParFromString(row9,'|',3,1));
+            202=CustomInterfaceText('Probe9C0',GetParFromString(row9,'|',0,1));
+            203=CustomInterfaceText('Probe9C1',GetParFromString(row9,'|',1,1));
+            204=CustomInterfaceText('Probe9C2',GetParFromString(row9,'|',2,1));
+            205=CustomInterfaceText('Probe9C3',GetParFromString(row9,'|',3,1));
+            206=CustomInterfaceText('Probe9C4',GetParFromString(row9,'|',4,1));
+            207=CustomInterfaceText('Probe9C5',GetParFromString(row9,'|',5,1));
+            208=}
+            209=CustomInterfaceState('Row10',10<visible);
+            210=if(10<visible)
+            211={
+            212=str row10=GetParFromString(pageRows,'\n',10,0);
+            213=CustomInterfaceState('Plain10',columns==0);
+            214=CustomInterfaceState('Planet10',columns==1);
+            215=CustomInterfaceState('Probe10',columns==2 || columns==3);
+            216=CustomInterfaceText('PlainText10',row10);
+            217=CustomInterfaceText('Planet10C0',GetParFromString(row10,'|',0,1));
+            218=CustomInterfaceText('Planet10C1',GetParFromString(row10,'|',1,1));
+            219=CustomInterfaceText('Planet10C2',GetParFromString(row10,'|',2,1));
+            220=CustomInterfaceText('Planet10C3',GetParFromString(row10,'|',3,1));
+            221=CustomInterfaceText('Probe10C0',GetParFromString(row10,'|',0,1));
+            222=CustomInterfaceText('Probe10C1',GetParFromString(row10,'|',1,1));
+            223=CustomInterfaceText('Probe10C2',GetParFromString(row10,'|',2,1));
+            224=CustomInterfaceText('Probe10C3',GetParFromString(row10,'|',3,1));
+            225=CustomInterfaceText('Probe10C4',GetParFromString(row10,'|',4,1));
+            226=CustomInterfaceText('Probe10C5',GetParFromString(row10,'|',5,1));
+            227=}
+            228=CustomInterfaceState('Row11',11<visible);
+            229=if(11<visible)
+            230={
+            231=str row11=GetParFromString(pageRows,'\n',11,0);
+            232=CustomInterfaceState('Plain11',columns==0);
+            233=CustomInterfaceState('Planet11',columns==1);
+            234=CustomInterfaceState('Probe11',columns==2 || columns==3);
+            235=CustomInterfaceText('PlainText11',row11);
+            236=CustomInterfaceText('Planet11C0',GetParFromString(row11,'|',0,1));
+            237=CustomInterfaceText('Planet11C1',GetParFromString(row11,'|',1,1));
+            238=CustomInterfaceText('Planet11C2',GetParFromString(row11,'|',2,1));
+            239=CustomInterfaceText('Planet11C3',GetParFromString(row11,'|',3,1));
+            240=CustomInterfaceText('Probe11C0',GetParFromString(row11,'|',0,1));
+            241=CustomInterfaceText('Probe11C1',GetParFromString(row11,'|',1,1));
+            242=CustomInterfaceText('Probe11C2',GetParFromString(row11,'|',2,1));
+            243=CustomInterfaceText('Probe11C3',GetParFromString(row11,'|',3,1));
+            244=CustomInterfaceText('Probe11C4',GetParFromString(row11,'|',4,1));
+            245=CustomInterfaceText('Probe11C5',GetParFromString(row11,'|',5,1));
+            246=}
+            247=CustomInterfaceState('Row12',12<visible);
+            248=if(12<visible)
+            249={
+            250=str row12=GetParFromString(pageRows,'\n',12,0);
+            251=CustomInterfaceState('Plain12',columns==0);
+            252=CustomInterfaceState('Planet12',columns==1);
+            253=CustomInterfaceState('Probe12',columns==2 || columns==3);
+            254=CustomInterfaceText('PlainText12',row12);
+            255=CustomInterfaceText('Planet12C0',GetParFromString(row12,'|',0,1));
+            256=CustomInterfaceText('Planet12C1',GetParFromString(row12,'|',1,1));
+            257=CustomInterfaceText('Planet12C2',GetParFromString(row12,'|',2,1));
+            258=CustomInterfaceText('Planet12C3',GetParFromString(row12,'|',3,1));
+            259=CustomInterfaceText('Probe12C0',GetParFromString(row12,'|',0,1));
+            260=CustomInterfaceText('Probe12C1',GetParFromString(row12,'|',1,1));
+            261=CustomInterfaceText('Probe12C2',GetParFromString(row12,'|',2,1));
+            262=CustomInterfaceText('Probe12C3',GetParFromString(row12,'|',3,1));
+            263=CustomInterfaceText('Probe12C4',GetParFromString(row12,'|',4,1));
+            264=CustomInterfaceText('Probe12C5',GetParFromString(row12,'|',5,1));
+            265=}
+            266=CustomInterfaceState('Row13',13<visible);
+            267=if(13<visible)
+            268={
+            269=str row13=GetParFromString(pageRows,'\n',13,0);
+            270=CustomInterfaceState('Plain13',columns==0);
+            271=CustomInterfaceState('Planet13',columns==1);
+            272=CustomInterfaceState('Probe13',columns==2 || columns==3);
+            273=CustomInterfaceText('PlainText13',row13);
+            274=CustomInterfaceText('Planet13C0',GetParFromString(row13,'|',0,1));
+            275=CustomInterfaceText('Planet13C1',GetParFromString(row13,'|',1,1));
+            276=CustomInterfaceText('Planet13C2',GetParFromString(row13,'|',2,1));
+            277=CustomInterfaceText('Planet13C3',GetParFromString(row13,'|',3,1));
+            278=CustomInterfaceText('Probe13C0',GetParFromString(row13,'|',0,1));
+            279=CustomInterfaceText('Probe13C1',GetParFromString(row13,'|',1,1));
+            280=CustomInterfaceText('Probe13C2',GetParFromString(row13,'|',2,1));
+            281=CustomInterfaceText('Probe13C3',GetParFromString(row13,'|',3,1));
+            282=CustomInterfaceText('Probe13C4',GetParFromString(row13,'|',4,1));
+            283=CustomInterfaceText('Probe13C5',GetParFromString(row13,'|',5,1));
+            284=}
+        }
+        FindPlanetById ^{
+            001=dword result=0;
+            002=if(planet_id<1)exit;
+            003=for(int s=0;s<GalaxyStars();s=s+1)
+            004={
+            005=dword star=GalaxyStar(s);
+            006=if(!star)continue;
+            007=for(int p=0;p<StarPlanets(star);p=p+1)
+            008={
+            009=dword planet=StarPlanets(star,p);
+            010=if(planet && Id(planet)==planet_id){result=planet;exit;}
+            011=}
+            012=}
+        }
+        FindProbeByIdNative ^{
+            001=dword result=0;
+            002=if(item_id<1)exit;
+            003=unknown FHDNativeInitFind=ImportedFunction('FHDExpeditionNative','FHDExpeditionNativeInit');
+            004=FHDNativeInitFind(GalaxyPtr());
+            005=unknown FHDFindProbeById=ImportedFunction('FHDExpeditionNative','FindProbeById');
+            006=result=FHDFindProbeById(item_id);
+            007=if(!result)result=IdToItem(item_id);
+        }
+        FindProbeOnPlanet ^{
+            001=dword result=0;
+            002=if(!planet || item_id<1)exit;
+            003=dword expectedProbe=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.FindProbeByIdNative'),'item_id',item_id,'result');
+            004=if(!expectedProbe || ItemType(expectedProbe)!=t_Satellite)exit;
+            005=int orbitCount=GetPlanetOrbitProbe(planet,-1,0);
+            006=for(int orbitIndex=0;orbitIndex<orbitCount;orbitIndex=orbitIndex+1)
+            007={
+            008=dword item=GetPlanetOrbitProbe(planet,orbitIndex,0);
+            009=if(item==expectedProbe){result=expectedProbe;exit;}
+            010=}
+            011=int freeOrbit=-1;
+            012=for(int freeOrbitIndex=0;freeOrbitIndex<orbitCount;freeOrbitIndex=freeOrbitIndex+1)
+            013={
+            014=if(!GetPlanetOrbitProbe(planet,freeOrbitIndex,0)){freeOrbit=freeOrbitIndex;break;}
+            015=}
+            016=if(freeOrbit<0)exit;
+            017=for(int hiddenIndex=PlanetItems(planet)-1;hiddenIndex>-1;hiddenIndex=hiddenIndex-1)
+            018={
+            019=dword hiddenProbe=PlanetItems(planet,hiddenIndex);
+            020=if(hiddenProbe!=expectedProbe)continue;
+            021=hiddenProbe=GetItemFromPlanet(planet,hiddenIndex);
+            022=unknown FHDNativeInit=ImportedFunction('FHDExpeditionNative','FHDExpeditionNativeInit');
+            023=FHDNativeInit(GalaxyPtr());
+            024=unknown FHDDeployProbe=ImportedFunction('FHDExpeditionNative','DeployProbe');
+            025=if(FHDDeployProbe(planet,freeOrbit,hiddenProbe))result=hiddenProbe;
+            026=else AddItemToShip(Player(),hiddenProbe);
+            027=exit;
+            028=}
+        }
+        FindReturnSB ^{
+            001=dword result=0;
+            002=for(int s=0;s<GalaxyStars();s=s+1)
+            003={
+            004=dword star=GalaxyStar(s);
+            005=if(!star || StarOwner(star)==1)continue;
+            006=for(int t=0;t<2;t=t+1)
+            007={
+            008=str kind='SB';
+            009=if(t==1)kind='SSB';
+            010=dword station=StarRuins(star,kind);
+            011=if(!station)continue;
+            012=if(!result)result=station;
+            013=if(Id(station)==preferred_id){result=station;exit;}
+            014=}
+            015=}
+        }
+        LaunchCost ^{
+            001=int gtlValue=GalaxyTechLevel();
+            002=if(gtlValue<3)gtlValue=3;
+            003=int result=15000+(gtlValue-3)*2250;
+        }
+        NewExpedition ^{
+            001=dword launchStation=GetShipRuins(Player());
+            002=if(!launchStation){MessageBox('Экспедицию можно отправить только с научной базы.');exit;}
+            003=str launchStationType=ShipType(launchStation);
+            004=if(launchStationType!='SB' && launchStationType!='SSB'){MessageBox('Экспедицию можно отправить только с научной базы.');exit;}
+            005=
+            006=unknown targetPlanets=newarray(1);
+            007=unknown targetPlanetNames=newarray(1);
+            008=unknown targetPlanetSortKeys=newarray(1);
+            009=int targetPlanetCount=0;
+            010=for(int galaxyStarIndex=0;galaxyStarIndex<GalaxyStars();galaxyStarIndex=galaxyStarIndex+1)
+            011={
+            012=dword candidateStar=GalaxyStar(galaxyStarIndex);
+            013=if(!candidateStar)continue;
+            014=if(!SectorVisible(StarToCon(candidateStar)))continue;
+            015=if(StarOwner(candidateStar)==1)continue;
+            016=for(int candidatePlanetIndex=0;candidatePlanetIndex<StarPlanets(candidateStar);candidatePlanetIndex=candidatePlanetIndex+1)
+            017={
+            018=dword candidatePlanet=StarPlanets(candidateStar,candidatePlanetIndex);
+            019=if(!candidatePlanet)continue;
+            020=if(PlanetOwner(candidatePlanet)!=None)continue;
+            021=int terrainRemains=0;
+            022=if(PlanetTerrainExplored(candidatePlanet,0)<PlanetTerrain(candidatePlanet,0))terrainRemains=1;
+            023=if(PlanetTerrainExplored(candidatePlanet,1)<PlanetTerrain(candidatePlanet,1))terrainRemains=1;
+            024=if(PlanetTerrainExplored(candidatePlanet,2)<PlanetTerrain(candidatePlanet,2))terrainRemains=1;
+            025=if(!terrainRemains)continue;
+            026=str candidatePlanetLabel=StarName(candidateStar)+' / '+Name(candidatePlanet)
+            027=+' | Вода '+PlanetTerrainExplored(candidatePlanet,0)+'/'+PlanetTerrain(candidatePlanet,0)
+            028=+' | Равнины '+PlanetTerrainExplored(candidatePlanet,1)+'/'+PlanetTerrain(candidatePlanet,1)
+            029=+' | Горы '+PlanetTerrainExplored(candidatePlanet,2)+'/'+PlanetTerrain(candidatePlanet,2);
+            030=str candidatePlanetSortKey=lowercase(StarName(candidateStar))+' / '+lowercase(Name(candidatePlanet));
+            031=if(!targetPlanetCount)
+            032={
+            033=targetPlanets[0]=candidatePlanet;
+            034=targetPlanetNames[0]=candidatePlanetLabel;
+            035=targetPlanetSortKeys[0]=candidatePlanetSortKey;
+            036=targetPlanetCount=1;
+            037=}
+            038=else
+            039={
+            040=ArrayAdd(targetPlanets,candidatePlanet);
+            041=ArrayAdd(targetPlanetNames,candidatePlanetLabel);
+            042=ArrayAdd(targetPlanetSortKeys,candidatePlanetSortKey);
+            043=targetPlanetCount=targetPlanetCount+1;
+            044=}
+            045=}
+            046=}
+            047=if(!targetPlanetCount)
+            048={
+            049=free(targetPlanets);
+            050=free(targetPlanetNames);
+            051=free(targetPlanetSortKeys);
+            052=MessageBox('Нет доступных неисследованных необитаемых планет в открытых системах. Доминаторские системы исключены.');
+            053=exit;
+            054=}
+            055=dword swapPlanet=0;
+            056=str swapPlanetName='';
+            057=str swapPlanetKey='';
+            058=for(int planetSortPass=0;planetSortPass<targetPlanetCount-1;planetSortPass=planetSortPass+1)
+            059={
+            060=for(int planetSortIndex=0;planetSortIndex<targetPlanetCount-planetSortPass-1;planetSortIndex=planetSortIndex+1)
+            061={
+            062=if(min(targetPlanetSortKeys[planetSortIndex],targetPlanetSortKeys[planetSortIndex+1])==targetPlanetSortKeys[planetSortIndex])continue;
+            063=swapPlanet=targetPlanets[planetSortIndex];
+            064=targetPlanets[planetSortIndex]=targetPlanets[planetSortIndex+1];
+            065=targetPlanets[planetSortIndex+1]=swapPlanet;
+            066=swapPlanetName=targetPlanetNames[planetSortIndex];
+            067=targetPlanetNames[planetSortIndex]=targetPlanetNames[planetSortIndex+1];
+            068=targetPlanetNames[planetSortIndex+1]=swapPlanetName;
+            069=swapPlanetKey=targetPlanetSortKeys[planetSortIndex];
+            070=targetPlanetSortKeys[planetSortIndex]=targetPlanetSortKeys[planetSortIndex+1];
+            071=targetPlanetSortKeys[planetSortIndex+1]=swapPlanetKey;
+            072=}
+            073=}
+            074=free(targetPlanetSortKeys);
+            075=int chosenPlanetIndex=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.WideList'),'title','ВЫБЕРИТЕ НЕОБИТАЕМУЮ ПЛАНЕТУ','rows',targetPlanetNames,'columns',1,'result');
+            076=if(chosenPlanetIndex<0){free(targetPlanets);free(targetPlanetNames);exit;}
+            077=dword targetPlanet=targetPlanets[chosenPlanetIndex];
+            078=free(targetPlanets);
+            079=free(targetPlanetNames);
+            080=
+            081=unknown availableProbes=newarray(1);
+            082=unknown availableProbeLabels=newarray(1);
+            083=int availableProbeCount=0;
+            084=for(int cargoProbeIndex=0;cargoProbeIndex<ShipItems(Player());cargoProbeIndex=cargoProbeIndex+1)
+            085={
+            086=dword cargoProbe=ShipItems(Player(),cargoProbeIndex);
+            087=if(!cargoProbe || ItemType(cargoProbe)!=t_Satellite)continue;
+            088=str cargoProbeLabel='ТРЮМ | '+DeleteTags(ItemFullName(cargoProbe))+' | '+ItemDurability(cargoProbe)+'% | Вода '+GetEquipmentStats(cargoProbe,0)+' | Равнины '+GetEquipmentStats(cargoProbe,1)+' | Горы '+GetEquipmentStats(cargoProbe,2);
+            089=if(!availableProbeCount)
+            090={
+            091=availableProbes[0]=cargoProbe;
+            092=availableProbeLabels[0]=cargoProbeLabel;
+            093=availableProbeCount=1;
+            094=}
+            095=else
+            096={
+            097=ArrayAdd(availableProbes,cargoProbe);
+            098=ArrayAdd(availableProbeLabels,cargoProbeLabel);
+            099=availableProbeCount=availableProbeCount+1;
+            100=}
+            101=}
+            102=for(int storageProbeIndex=0;storageProbeIndex<StorageItems();storageProbeIndex=storageProbeIndex+1)
+            103={
+            104=dword storageProbe=StorageItems(storageProbeIndex);
+            105=if(!storageProbe || ItemType(storageProbe)!=t_Satellite)continue;
+            106=dword storageStation=StorageItemLocation(storageProbeIndex);
+            107=if(!storageStation)continue;
+            108=str storageStationType=ShipType(storageStation);
+            109=if(storageStationType!='SB' && storageStationType!='SSB')continue;
+            110=str storageProbeLabel='СКЛАД '+Name(storageStation)+' / '+StarName(ShipStar(storageStation))+' | '+DeleteTags(ItemFullName(storageProbe))+' | '+ItemDurability(storageProbe)+'% | Вода '+GetEquipmentStats(storageProbe,0)+' | Равнины '+GetEquipmentStats(storageProbe,1)+' | Горы '+GetEquipmentStats(storageProbe,2);
+            111=if(!availableProbeCount)
+            112={
+            113=availableProbes[0]=storageProbe;
+            114=availableProbeLabels[0]=storageProbeLabel;
+            115=availableProbeCount=1;
+            116=}
+            117=else
+            118={
+            119=ArrayAdd(availableProbes,storageProbe);
+            120=ArrayAdd(availableProbeLabels,storageProbeLabel);
+            121=availableProbeCount=availableProbeCount+1;
+            122=}
+            123=}
+            124=if(!availableProbeCount)
+            125={
+            126=free(availableProbes);
+            127=free(availableProbeLabels);
+            128=MessageBox('Нет доступных исследовательских зондов ни в трюме, ни на складах научных баз.');
+            129=exit;
+            130=}
+            131=
+            132=unknown selectedProbes=newarray(1);
+            133=str selectedProbeIndexes=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.WideMultiList'),'title','ВЫБЕРИТЕ ЗОНДЫ','rows',availableProbeLabels,'result');
+            134=if(selectedProbeIndexes=='')
+            135={
+            136=free(availableProbes);
+            137=free(availableProbeLabels);
+            138=free(selectedProbes);
+            139=exit;
+            140=}
+            141=int selectedProbeCount=ParsCountFromString(selectedProbeIndexes,',');
+            142=for(int selectedProbeListIndex=0;selectedProbeListIndex<selectedProbeCount;selectedProbeListIndex=selectedProbeListIndex+1)
+            143={
+            144=int selectedAvailableIndex=GetParFromString(selectedProbeIndexes,',',selectedProbeListIndex,1);
+            145=dword selectedProbe=availableProbes[selectedAvailableIndex];
+            146=if(!selectedProbeListIndex)selectedProbes[0]=selectedProbe;
+            147=else ArrayAdd(selectedProbes,selectedProbe);
+            148=}
+            149=free(availableProbes);
+            150=free(availableProbeLabels);
+            151=if(!selectedProbeCount){free(selectedProbes);exit;}
+            152=
+            153=int totalRepairCost=0;
+            154=for(int repairProbeIndex=0;repairProbeIndex<selectedProbeCount;repairProbeIndex=repairProbeIndex+1)
+            155={
+            156=dword repairProbe=selectedProbes[repairProbeIndex];
+            157=if(ItemDurability(repairProbe)<100)totalRepairCost=totalRepairCost+(ItemCost(repairProbe)*(100-ItemDurability(repairProbe)))/400;
+            158=}
+            159=int repairRequested=0;
+            160=if(totalRepairCost>0)
+            161={
+            162=unknown repairMenu=newarray(3);
+            163=repairMenu[0]='ПОЧИНИТЬ И ПРОДОЛЖИТЬ - '+totalRepairCost+' cr';
+            164=repairMenu[1]='ОТПРАВИТЬ БЕЗ РЕМОНТА';
+            165=repairMenu[2]='ОТМЕНА';
+            166=int repairMenuChoice=ListBox('В выбранной группе есть повреждённые зонды. Ремонт рассчитывается по обычной цене оборудования.',repairMenu);
+            167=free(repairMenu);
+            168=if(repairMenuChoice==2 || repairMenuChoice<0){free(selectedProbes);exit;}
+            169=if(repairMenuChoice==0)repairRequested=1;
+            170=}
+            171=int expeditionCost=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.LaunchCost'),'result');
+            172=int requestedRepairCost=0;
+            173=if(repairRequested)requestedRepairCost=totalRepairCost;
+            174=int totalCharge=expeditionCost+requestedRepairCost;
+            175=str expeditionSummary='НАУЧНАЯ ЭКСПЕДИЦИЯ\n\nСистема: '+StarName(PlanetToStar(targetPlanet))+'\nПланета: '+Name(targetPlanet)+'\nЗондов: '+selectedProbeCount+'\nСтоимость запуска: '+expeditionCost+' cr';
+            176=if(requestedRepairCost>0)expeditionSummary=expeditionSummary+'\nСтоимость ремонта: '+requestedRepairCost+' cr\nВсего к списанию: '+totalCharge+' cr';
+            177=expeditionSummary=expeditionSummary+'\n\nПосле завершения находки будут переданы на склад научной станции и появятся в разделе «Собственность вне корабля».';
+            178=unknown launchConfirmMenu=newarray(2);
+            179=launchConfirmMenu[0]='ОТПРАВИТЬ';
+            180=launchConfirmMenu[1]='ОТМЕНА';
+            181=int launchConfirmChoice=ListBox(expeditionSummary,launchConfirmMenu);
+            182=free(launchConfirmMenu);
+            183=if(launchConfirmChoice!=0){free(selectedProbes);exit;}
+            184=if(ShipMoney(Player())<totalCharge){free(selectedProbes);MessageBox('Недостаточно кредитов. Требуется всего: '+totalCharge+' cr.');exit;}
+            185=ShipMoney(Player(),ShipMoney(Player())-totalCharge);
+            186=Sound('Sound.Buy');
+            187=int repairCostPaid=0;
+            188=if(repairRequested)
+            189={
+            190=repairCostPaid=totalRepairCost;
+            191=for(int repairApplyIndex=0;repairApplyIndex<selectedProbeCount;repairApplyIndex=repairApplyIndex+1)
+            192={
+            193=dword repairedProbe=selectedProbes[repairApplyIndex];
+            194=if(ItemDurability(repairedProbe)<100)ItemDurability(repairedProbe,100);
+            195=}
+            196=}
+            197=unknown FHDNativeInit=ImportedFunction('FHDExpeditionNative','FHDExpeditionNativeInit');
+            198=FHDNativeInit(GalaxyPtr());
+            199=unknown FHDDeployProbe=ImportedFunction('FHDExpeditionNative','DeployProbe');
+            200=int launchedProbeCount=0;
+            201=int targetOrbitCount=GetPlanetOrbitProbe(targetPlanet,-1,0);
+            202=for(int launchProbeIndex=0;launchProbeIndex<selectedProbeCount;launchProbeIndex=launchProbeIndex+1)
+            203={
+            204=int freeOrbit=-1;
+            205=for(int orbitIndex=0;orbitIndex<targetOrbitCount;orbitIndex=orbitIndex+1)
+            206={
+            207=if(!GetPlanetOrbitProbe(targetPlanet,orbitIndex,0)){freeOrbit=orbitIndex;break;}
+            208=}
+            209=if(freeOrbit<0)break;
+            210=dword launchProbe=selectedProbes[launchProbeIndex];
+            211=dword movedProbe=0;
+            212=for(int sourceCargoIndex=ShipItems(Player())-1;sourceCargoIndex>-1;sourceCargoIndex=sourceCargoIndex-1)
+            213={
+            214=if(ShipItems(Player(),sourceCargoIndex)==launchProbe)
+            215={
+            216=movedProbe=GetItemFromShip(Player(),sourceCargoIndex);
+            217=break;
+            218=}
+            219=}
+            220=if(!movedProbe)
+            221={
+            222=for(int sourceStorageIndex=StorageItems()-1;sourceStorageIndex>-1;sourceStorageIndex=sourceStorageIndex-1)
+            223={
+            224=if(StorageItems(sourceStorageIndex)==launchProbe)
+            225={
+            226=movedProbe=GetItemFromStorage(sourceStorageIndex);
+            227=break;
+            228=}
+            229=}
+            230=}
+            231=if(!movedProbe)continue;
+            232=if(!FHDDeployProbe(targetPlanet,freeOrbit,movedProbe))
+            233={
+            234=AddItemToShip(Player(),movedProbe);
+            235=continue;
+            236=}
+            237=ShipAddCustomShipInfo(Player(),'FHDExpeditionProbe','NoShow',Id(movedProbe),Id(targetPlanet),Id(launchStation),'','','FHDEXP_PROBE');
+            238=launchedProbeCount=launchedProbeCount+1;
+            239=}
+            240=free(selectedProbes);
+            241=if(!launchedProbeCount)
+            242={
+            243=ShipMoney(Player(),ShipMoney(Player())+expeditionCost);
+            244=MessageBox('Ни один выбранный зонд не удалось отправить. Стоимость запуска возвращена. Ремонт, если он был выполнен, остаётся оплаченным.');
+            245=exit;
+            246=}
+            247=if(launchedProbeCount<selectedProbeCount)MessageBox('Часть выбранных зондов не удалось переместить. Запущено: '+launchedProbeCount+'.');
+            248=str launchNotice='НАУЧНАЯ ЭКСПЕДИЦИЯ ЗАПУЩЕНА\n\nСистема: '+StarName(PlanetToStar(targetPlanet))+'\nПланета: '+Name(targetPlanet)+'\nЗондов запущено: '+launchedProbeCount+'\nСтоимость запуска: '+expeditionCost+' cr';
+            249=if(repairCostPaid>0)launchNotice=launchNotice+'\nСтоимость ремонта: '+repairCostPaid+' cr\nВсего списано: '+(expeditionCost+repairCostPaid)+' cr';
+            250=launchNotice=launchNotice+'\n\nЗонды отправлены на исследование. После завершения находки появятся в разделе «Собственность вне корабля».';
+            251=Ether(7,'',launchNotice);
+            252=Sound('Sound.NewMsg');
+        }
+        NormalizeProbeRecord ^{
+            001=int oldData1=ShipCustomShipInfoData(Player(),record_info,1);
+            002=if(oldData1!=0)exit;
+            003=int oldItem=ShipCustomShipInfoData(Player(),record_info,2);
+            004=int oldPlanet=ShipCustomShipInfoData(Player(),record_info,3);
+            005=int oldStation=ShipCustomShipInfoTextData(Player(),record_info,1);
+            006=if(oldItem<1 || oldPlanet<1)exit;
+            007=ShipCustomShipInfoData(Player(),record_info,1,oldItem);
+            008=ShipCustomShipInfoData(Player(),record_info,2,oldPlanet);
+            009=ShipCustomShipInfoData(Player(),record_info,3,oldStation);
+            010=ShipCustomShipInfoTextData(Player(),record_info,1,'');
+            011=ShipCustomShipInfoTextData(Player(),record_info,3,'FHDEXP_PROBE');
+        }
+        Open ^{
+            000=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.EnsureController'));
+            001=dword openStation=GetShipRuins(Player());
+            002=if(!openStation){MessageBox('Экспедиции доступны только на научной базе.');exit;}
+            003=str openStationType=ShipType(openStation);
+            004=if(openStationType!='SB' && openStationType!='SSB'){MessageBox('Экспедиции доступны только на научной базе.');exit;}
+            005=unknown expeditionMenu=newarray(3);
+            006=expeditionMenu[0]='НОВАЯ ЭКСПЕДИЦИЯ';
+            007=expeditionMenu[1]='АКТИВНЫЕ ЭКСПЕДИЦИИ';
+            008=expeditionMenu[2]='ОТМЕНА';
+            009=int expeditionMenuChoice=ListBox('НАУЧНАЯ ЭКСПЕДИЦИОННАЯ СЛУЖБА\nВыберите действие:',expeditionMenu);
+            010=free(expeditionMenu);
+            011=if(expeditionMenuChoice==0)ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.NewExpedition'));
+            012=else if(expeditionMenuChoice==1)ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.ShowActive'));
+        }
+        ProcessCore ^{
+            001=if(!(ScriptItemActionType(t_OnEnteringForm)||ScriptItemActionType(t_OnReEnteringForm)))exit;
+            002=if(CurrentForm()!='RuinsTalk')exit;
+            003=dword station=GetShipRuins(Player());
+            004=int show=0;
+            005=if(station){str stationType=ShipType(station);if(stationType=='SB' || stationType=='SSB')show=1;}
+            006=InterfaceState('RuinsTalk','FHDExpeditionButton',show);if(show){int resX=GetGameOptions('ResolutionX');int resY=GetGameOptions('ResolutionY');int offX=(resX-1024)/2;int offY=0;if(resY<768)offY=(resY-768)/2;else{offY=resY-768;if(offY>250)offY=250;offY=(offY/3)*3;}InterfacePos('RuinsTalk','FHDExpeditionButton',offX,offY,-120);}
+        }
+        ProcessProbe ^{
+            001=if(!ScriptItemActionType(t_OnStep))exit;
+            002=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.NormalizeProbeRecord'),'record_info',record_info);
+            003=int processItemId=ShipCustomShipInfoData(Player(),record_info,1);
+            004=int processPlanetId=ShipCustomShipInfoData(Player(),record_info,2);
+            005=int processStationId=ShipCustomShipInfoData(Player(),record_info,3);
+            006=dword processPlanet=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.FindPlanetById'),'planet_id',processPlanetId,'result');
+            007=dword expectedProcessItem=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.FindProbeByIdNative'),'item_id',processItemId,'result');
+            008=if(!processPlanet || !expectedProcessItem || ItemType(expectedProcessItem)!=t_Satellite){ShipDeleteCustomShipInfo(Player(),record_info);exit;}
+            009=int processPlanetComplete=1;
+            010=if(PlanetTerrainExplored(processPlanet,0)<PlanetTerrain(processPlanet,0))processPlanetComplete=0;
+            011=if(PlanetTerrainExplored(processPlanet,1)<PlanetTerrain(processPlanet,1))processPlanetComplete=0;
+            012=if(PlanetTerrainExplored(processPlanet,2)<PlanetTerrain(processPlanet,2))processPlanetComplete=0;
+            013=dword processItem=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.FindProbeOnPlanet'),'planet',processPlanet,'item_id',processItemId,'result');
+            014=if(processPlanetComplete || !processItem)
+            015={
+            016=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.ReturnProbe'),'record_info',record_info,'item_id',processItemId,'planet_id',processPlanetId,'station_id',processStationId);
+            017=exit;
+            018=}
+            019=int processWork=0;
+            020=if(GetEquipmentStats(processItem,0)>0 && PlanetTerrainExplored(processPlanet,0)<PlanetTerrain(processPlanet,0))processWork=1;
+            021=if(GetEquipmentStats(processItem,1)>0 && PlanetTerrainExplored(processPlanet,1)<PlanetTerrain(processPlanet,1))processWork=1;
+            022=if(GetEquipmentStats(processItem,2)>0 && PlanetTerrainExplored(processPlanet,2)<PlanetTerrain(processPlanet,2))processWork=1;
+            023=if(ItemDurability(processItem)<2)processWork=0;
+            024=if(processWork)exit;
+            025=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.ReturnProbe'),'record_info',record_info,'item_id',processItemId,'planet_id',processPlanetId,'station_id',processStationId);
+        }
+        ReturnProbe ^{
+            001=dword returnPlanet=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.FindPlanetById'),'planet_id',planet_id,'result');
+            002=if(!returnPlanet){ShipDeleteCustomShipInfo(Player(),record_info);exit;}
+            003=dword expectedReturnItem=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.FindProbeByIdNative'),'item_id',item_id,'result');
+            004=if(!expectedReturnItem || ItemType(expectedReturnItem)!=t_Satellite){ShipDeleteCustomShipInfo(Player(),record_info);exit;}
+            005=dword returnItem=0;
+            006=int returnOrbitCount=GetPlanetOrbitProbe(returnPlanet,-1,0);
+            007=for(int returnOrbit=0;returnOrbit<returnOrbitCount;returnOrbit=returnOrbit+1)
+            008={
+            009=dword candidate=GetPlanetOrbitProbe(returnPlanet,returnOrbit,0);
+            010=if(candidate==expectedReturnItem)
+            011={
+            012=returnItem=GetPlanetOrbitProbe(returnPlanet,returnOrbit,1);
+            013=break;
+            014=}
+            015=}
+            016=if(!returnItem)
+            017={
+            018=unknown FHDNativeInitReturn=ImportedFunction('FHDExpeditionNative','FHDExpeditionNativeInit');
+            019=FHDNativeInitReturn(GalaxyPtr());
+            020=unknown FHDRecoverProbe=ImportedFunction('FHDExpeditionNative','RecoverProbe');
+            021=if(FHDRecoverProbe(expectedReturnItem))returnItem=expectedReturnItem;
+            022=}
+            023=if(!returnItem){ShipDeleteCustomShipInfo(Player(),record_info);exit;}
+            024=dword destinationStation=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.FindReturnSB'),'preferred_id',station_id,'result');
+            025=int returnedFindCount=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.CollectPlanetFinds'),'planet',returnPlanet,'station',destinationStation,'result');
+            026=if(destinationStation)AddItemToStorage(destinationStation,returnItem);
+            027=else AddItemToShip(Player(),returnItem);
+            028=str returnWhere='трюм корабля';
+            029=if(destinationStation)returnWhere='склад '+Name(destinationStation)+' / '+StarName(ShipStar(destinationStation));
+            030=Ether(10,'','НАУЧНАЯ ЭКСПЕДИЦИЯ\n\nЗонд «'+DeleteTags(ItemFullName(returnItem))+'» завершил работу на '+Name(returnPlanet)+'.\nСостояние: '+ItemDurability(returnItem)+'%.\nНаходок передано в собственность вне корабля: '+returnedFindCount+'.\nВозврат: '+returnWhere+'.');
+            031=ShipDeleteCustomShipInfo(Player(),record_info);
+        }
+        ShowActive ^{
+            001=unknown activeRows=newarray(1);
+            002=int activeCount=0;
+            003=for(int activeInfoIndex=0;activeInfoIndex<ShipCustomShipInfosCount(Player());activeInfoIndex=activeInfoIndex+1)
+            004={
+            005=if(ShipCustomShipInfoTextData(Player(),activeInfoIndex,3)!='FHDEXP_PROBE')continue;
+            006=int activeItemId=ShipCustomShipInfoData(Player(),activeInfoIndex,1);
+            007=int activePlanetId=ShipCustomShipInfoData(Player(),activeInfoIndex,2);
+            008=if(activeItemId<1)
+            009={
+            010=int legacyItemId=ShipCustomShipInfoData(Player(),activeInfoIndex,2);
+            011=int legacyPlanetId=ShipCustomShipInfoData(Player(),activeInfoIndex,3);
+            012=int legacyStationId=ShipCustomShipInfoTextData(Player(),activeInfoIndex,1);
+            013=if(legacyItemId>0 && legacyPlanetId>0)
+            014={
+            015=ShipCustomShipInfoData(Player(),activeInfoIndex,1,legacyItemId);
+            016=ShipCustomShipInfoData(Player(),activeInfoIndex,2,legacyPlanetId);
+            017=ShipCustomShipInfoData(Player(),activeInfoIndex,3,legacyStationId);
+            018=ShipCustomShipInfoTextData(Player(),activeInfoIndex,1,'');
+            019=ShipCustomShipInfoTextData(Player(),activeInfoIndex,3,'FHDEXP_PROBE');
+            020=activeItemId=legacyItemId;
+            021=activePlanetId=legacyPlanetId;
+            022=}
+            023=}
+            024=if(activeItemId<1 || activePlanetId<1)continue;
+            025=dword activePlanet=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.FindPlanetById'),'planet_id',activePlanetId,'result');
+            026=dword activeItem=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.FindProbeByIdNative'),'item_id',activeItemId,'result');
+            027=if(!activePlanet || !activeItem || ItemType(activeItem)!=t_Satellite)continue;
+            028=str activeRow=StarName(PlanetToStar(activePlanet))+' / '+Name(activePlanet)
+            029=+' | '+DeleteTags(ItemFullName(activeItem))
+            030=+' | '+ItemDurability(activeItem)+'%'
+            031=+' | Вода '+PlanetTerrainExplored(activePlanet,0)+'/'+PlanetTerrain(activePlanet,0)
+            032=+' | Равнины '+PlanetTerrainExplored(activePlanet,1)+'/'+PlanetTerrain(activePlanet,1)
+            033=+' | Горы '+PlanetTerrainExplored(activePlanet,2)+'/'+PlanetTerrain(activePlanet,2)
+            034=+' | Зонд: В '+GetEquipmentStats(activeItem,0)+' Р '+GetEquipmentStats(activeItem,1)+' Г '+GetEquipmentStats(activeItem,2);
+            035=if(!activeCount){activeRows[0]=activeRow;activeCount=1;}
+            036=else{ArrayAdd(activeRows,activeRow);activeCount=activeCount+1;}
+            037=}
+            038=if(!activeCount)
+            039={
+            040=free(activeRows);
+            041=MessageBox('АКТИВНЫЕ ЭКСПЕДИЦИИ\n\nСейчас нет работающих зондов.');
+            042=exit;
+            043=}
+            044=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.WideList'),'title','АКТИВНЫЕ ЭКСПЕДИЦИИ','rows',activeRows,'columns',0,'result');
+            045=free(activeRows);
+        }
+        SweepIdleProbes ^{
+            001=dword sweepStation=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.FindReturnSB'),'preferred_id',0,'result');
+            002=int sweptProbeCount=0;
+            003=int sweptFindCount=0;
+            004=for(int completedStarIndex=0;completedStarIndex<GalaxyStars();completedStarIndex=completedStarIndex+1)
+            005={
+            006=dword completedStar=GalaxyStar(completedStarIndex);
+            007=if(!completedStar)continue;
+            008=for(int completedPlanetIndex=0;completedPlanetIndex<StarPlanets(completedStar);completedPlanetIndex=completedPlanetIndex+1)
+            009={
+            010=dword completedPlanet=StarPlanets(completedStar,completedPlanetIndex);
+            011=if(!completedPlanet)continue;
+            012=if(PlanetTerrainExplored(completedPlanet,0)<PlanetTerrain(completedPlanet,0))continue;
+            013=if(PlanetTerrainExplored(completedPlanet,1)<PlanetTerrain(completedPlanet,1))continue;
+            014=if(PlanetTerrainExplored(completedPlanet,2)<PlanetTerrain(completedPlanet,2))continue;
+            015=int completedOrbitCount=GetPlanetOrbitProbe(completedPlanet,-1,0);
+            016=int completedPlanetHadProbe=0;
+            017=for(int completedOrbitIndex=completedOrbitCount-1;completedOrbitIndex>-1;completedOrbitIndex=completedOrbitIndex-1)
+            018={
+            019=dword completedOrbitProbe=GetPlanetOrbitProbe(completedPlanet,completedOrbitIndex,0);
+            020=if(!completedOrbitProbe)continue;
+            021=dword completedProbe=GetPlanetOrbitProbe(completedPlanet,completedOrbitIndex,1);
+            022=if(!completedProbe)continue;
+            023=if(sweepStation)AddItemToStorage(sweepStation,completedProbe);
+            024=else AddItemToShip(Player(),completedProbe);
+            025=sweptProbeCount=sweptProbeCount+1;
+            026=completedPlanetHadProbe=1;
+            027=}
+            028=if(completedPlanetHadProbe)sweptFindCount=sweptFindCount+ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.CollectPlanetFinds'),'planet',completedPlanet,'station',sweepStation,'result');
+            029=}
+            030=}
+            031=unknown FHDNativeInitSweep=ImportedFunction('FHDExpeditionNative','FHDExpeditionNativeInit');
+            032=if(FHDNativeInitSweep(GalaxyPtr()))
+            033={
+            034=unknown FHDRecoverIdleProbe=ImportedFunction('FHDExpeditionNative','RecoverIdleProbe');
+            035=for(int idleSweepIndex=0;idleSweepIndex<128;idleSweepIndex=idleSweepIndex+1)
+            036={
+            037=dword sweptProbe=FHDRecoverIdleProbe();
+            038=if(!sweptProbe)break;
+            039=if(sweepStation)AddItemToStorage(sweepStation,sweptProbe);
+            040=else AddItemToShip(Player(),sweptProbe);
+            041=sweptProbeCount=sweptProbeCount+1;
+            042=}
+            043=}
+            044=if(!sweptProbeCount && !sweptFindCount)exit;
+            045=str sweptWhere='трюм корабля';
+            046=if(sweepStation)sweptWhere='склад '+Name(sweepStation)+' / '+StarName(ShipStar(sweepStation));
+            047=Ether(10,'','НАУЧНАЯ ЭКСПЕДИЦИЯ\n\nЗавершившие исследование зонды возвращены: '+sweptProbeCount+'.\nНаходки переданы в собственность вне корабля: '+sweptFindCount+'.\nМесто возврата: '+sweptWhere+'.');
+        }
+        WideList ^{
+            001=int result=-1;
+            002=int count=ArrayDim(rows);
+            003=if(count<1)exit;
+            004=ShipDeleteCustomShipInfo(Player(),'FHDExpeditionMenu');
+            005=dword menu=ShipAddCustomShipInfo(Player(),'FHDExpeditionMenu','NoShow',0,0,0,'','','');
+            006=int page=0;
+            007=int pages=(count+13)/14;
+            008=int keepOpen=1;
+            009=while(keepOpen)
+            010={
+            011=int visible=count-page*14;
+            012=if(visible>14)visible=14;
+            013=str pageRows='';
+            014=for(int r=0;r<visible;r=r+1)
+            015={
+            016=if(r>0)pageRows=pageRows+'\n';
+            017=pageRows=pageRows+rows[page*14+r];
+            018=}
+            019=ShipCustomShipInfoData(0,menu,1,visible);
+            020=ShipCustomShipInfoData(0,menu,2,page);
+            021=ShipCustomShipInfoData(0,menu,3,pages);
+            022=ShipCustomShipInfoTextData(0,menu,1,title);
+            023=ShipCustomShipInfoTextData(0,menu,2,pageRows);
+            024=ShipCustomShipInfoTextData(0,menu,3,columns);
+            025=int choice=OpenCustomForm('FHDExpeditionList');
+            026=if(choice==2 && page>0)page=page-1;
+            027=else if(choice==3 && page+1<pages)page=page+1;
+            028=else if(choice>=4 && choice<4+visible){result=page*14+choice-4;keepOpen=0;}
+            029=else keepOpen=0;
+            030=}
+            031=ShipDeleteCustomShipInfo(0,menu);
+        }
+        WideMultiList ^{
+            001=str result='';
+            002=int multiCount=ArrayDim(rows);
+            003=if(multiCount<1)exit;
+            004=unknown multiFlags=newarray(1);
+            005=multiFlags[0]=0;
+            006=for(int multiInitIndex=1;multiInitIndex<multiCount;multiInitIndex=multiInitIndex+1)ArrayAdd(multiFlags,0);
+            007=ShipDeleteCustomShipInfo(Player(),'FHDExpeditionMenu');
+            008=dword multiMenu=ShipAddCustomShipInfo(Player(),'FHDExpeditionMenu','NoShow',0,0,0,'','','');
+            009=int multiPage=0;
+            010=int multiPages=(multiCount+13)/14;
+            011=int multiSelectedCount=0;
+            012=int multiKeepOpen=1;
+            013=while(multiKeepOpen)
+            014={
+            015=int multiVisible=multiCount-multiPage*14;
+            016=if(multiVisible>14)multiVisible=14;
+            017=str multiPageRows='';
+            018=for(int multiRowIndex=0;multiRowIndex<multiVisible;multiRowIndex=multiRowIndex+1)
+            019={
+            020=int multiAbsoluteIndex=multiPage*14+multiRowIndex;
+            021=if(multiRowIndex>0)multiPageRows=multiPageRows+'\n';
+            022=str multiMarkedRow='[ ] '+rows[multiAbsoluteIndex];
+            023=if(multiFlags[multiAbsoluteIndex])multiMarkedRow='<color=80,255,120>[ВЫБРАН]</color> '+rows[multiAbsoluteIndex];
+            024=multiPageRows=multiPageRows+multiMarkedRow;
+            025=}
+            026=ShipCustomShipInfoData(0,multiMenu,1,multiVisible);
+            027=ShipCustomShipInfoData(0,multiMenu,2,multiPage);
+            028=ShipCustomShipInfoData(0,multiMenu,3,multiPages);
+            029=ShipCustomShipInfoTextData(0,multiMenu,1,title+' — выбрано: '+multiSelectedCount);
+            030=ShipCustomShipInfoTextData(0,multiMenu,2,multiPageRows);
+            031=ShipCustomShipInfoTextData(0,multiMenu,3,3);
+            032=int multiChoice=OpenCustomForm('FHDExpeditionList');
+            033=if(multiChoice==2 && multiPage>0)multiPage=multiPage-1;
+            034=else if(multiChoice==3 && multiPage+1<multiPages)multiPage=multiPage+1;
+            035=else if(multiChoice>=4 && multiChoice<4+multiVisible)
+            036={
+            037=int multiToggleIndex=multiPage*14+multiChoice-4;
+            038=if(multiFlags[multiToggleIndex])
+            039={
+            040=multiFlags[multiToggleIndex]=0;
+            041=multiSelectedCount=multiSelectedCount-1;
+            042=}
+            043=else
+            044={
+            045=multiFlags[multiToggleIndex]=1;
+            046=multiSelectedCount=multiSelectedCount+1;
+            047=}
+            048=}
+            049=else if(multiChoice==18)
+            050={
+            051=if(multiSelectedCount>0)
+            052={
+            053=for(int multiResultIndex=0;multiResultIndex<multiCount;multiResultIndex=multiResultIndex+1)
+            054={
+            055=if(!multiFlags[multiResultIndex])continue;
+            056=if(result!='')result=result+',';
+            057=result=result+multiResultIndex;
+            058=}
+            059=multiKeepOpen=0;
+            060=}
+            061=}
+            062=else multiKeepOpen=0;
+            063=}
+            064=free(multiFlags);
+            065=ShipDeleteCustomShipInfo(0,multiMenu);
+        }
+    }
+    FHDExpeditionIntro ^{
+        ContinueAction ^{
+            001=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.Open'));
+        }
+        ContinueText=Продолжить
+        IntroText=Приветствуем вас, пилот. Хотим предложить вам взаимовыгодное сотрудничество. За скромную плату, которая поможет развитию нашей научной базы и принесёт пользу обеим сторонам, мы готовы предоставить услуги наших лучших экспедиторов. Вы оплачиваете работу профессионалов, которые будут следить за вашими исследовательскими зондами, организовывать исследования незаселённых миров и обеспечивать грузовую перевозку найденных предметов на нашу станцию. Мы берём на себя сопровождение экспедиции и доставку находок. Желаете продолжить?
+        RefuseText=Отказаться
+    }
+}
+ShipInfo ^{
+    AddInfo ^{
+        CustomInfos ^{
+            FHDExpeditionController ^{
+                Description=NoShow
+                Icon=0
+                Name=
+                OnActCode ^{
+                    001=if(ScriptItemActionType(t_OnStep,11))
+                    002={
+                    003=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.SweepIdleProbes'));
+                    004=}
+                }
+                OnActCodeTypes=t_OnStep
+                OnActStepTypes=11
+            }
+            FHDExpeditionCore ^{
+                Description=NoShow
+                Icon=0
+                Name=
+                OnActCode ^{
+                    01=ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.ProcessCore'));
+                }
+                OnActCodeTypes=t_OnEnteringForm,t_OnReEnteringForm
+                OnActStepTypes=0
+            }
+            FHDExpeditionIntroRequest ^{
+                Description=NoShow
+                Icon=0
+                Name=
+            }
+            FHDExpeditionMenu ^{
+                Description=NoShow
+                Icon=0
+                Name=
+            }
+            FHDExpeditionProbe ^{
+                Description=NoShow
+                Icon=0
+                Name=
+                OnActCode ^{
+                    01=if(ScriptItemActionType(t_OnStep))ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.ProcessProbe'),'record_info',CurInfo());
+                }
+                OnActCodeTypes=t_OnStep
+                OnActStepTypes=0
+            }
+        }
+    }
+}

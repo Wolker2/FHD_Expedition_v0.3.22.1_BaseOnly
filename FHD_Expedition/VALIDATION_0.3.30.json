@@ -1,0 +1,15 @@
+{
+  "version": "0.3.30 RuinsTalk FormChange Fix",
+  "based_on": "0.3.29",
+  "root_cause_from_log": "DAnswer('restart') was invoked from GraphButton OnPressCode and crashed in Rangers.exe; DAnswer is a dialog-answer helper, not a generic form refresh call.",
+  "old_button_code": "ShipDeleteCustomShipInfo(Player(),'FHDExpeditionIntroRequest');ShipAddCustomShipInfo(Player(),'FHDExpeditionIntroRequest','NoShow',0,0,0,'','','FHDEXP_INTRO_REQUEST');DAnswer('restart');",
+  "new_button_code": "ShipDeleteCustomShipInfo(Player(),'FHDExpeditionIntroRequest');ShipAddCustomShipInfo(Player(),'FHDExpeditionIntroRequest','NoShow',0,0,0,'','','FHDEXP_INTRO_REQUEST');FormChange('RuinsTalk');",
+  "main_dat_seed": 969384159,
+  "main_dat_roundtrip_decode_ok": true,
+  "main_dat_sha256": "fd3774f4a768f762ad3bdb85b519d2d6b43b739441444fbb034775fe00b3c534",
+  "original_scr_sha256": "3f23c361cc899c47ccf46677e7d47e015da79c2a5e10c7355a2f6121f316045b",
+  "helper_scr_sha256": "97d30556471b46d8cd86a3848e360fd18250f68e66fabb84bc55db99be5078a5",
+  "native_dll_sha256": "543bf09bf5c7e308eafbb2e5606320b812f9727ab52319a27151979f2594b8db",
+  "lang_dat_sha256": "96f93a6036e71c323bb71bea5752adeaf99df7474b5b25e15f12808a7508cdd5",
+  "layout": "upper native RuinsTalk text + lower native Continue/Refuse answers"
+}

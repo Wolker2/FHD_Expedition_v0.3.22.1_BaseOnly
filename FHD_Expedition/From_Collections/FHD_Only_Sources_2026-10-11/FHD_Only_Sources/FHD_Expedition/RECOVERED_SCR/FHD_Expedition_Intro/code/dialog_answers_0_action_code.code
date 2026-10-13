@@ -1,0 +1,1 @@
+ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpeditionIntro.ContinueAction'));

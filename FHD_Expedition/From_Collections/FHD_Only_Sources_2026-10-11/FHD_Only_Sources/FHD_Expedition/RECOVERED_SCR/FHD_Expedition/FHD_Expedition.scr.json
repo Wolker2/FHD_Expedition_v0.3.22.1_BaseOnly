@@ -1,0 +1,52 @@
+{
+  "schema": "fhd-scr-source-v1",
+  "version": 8,
+  "global_variables": [],
+  "global_code": {
+    "code_file": "code/global_code.code"
+  },
+  "local_variables": [
+    {
+      "name": "FHDExpAnchor",
+      "type": 2,
+      "value": 0
+    },
+    {
+      "name": "FHDExpeditionAction",
+      "type": 1,
+      "value": 0
+    }
+  ],
+  "constellations": 0,
+  "stars": [
+    {
+      "name": "FHDExpAnchor",
+      "constellation_index": -1,
+      "reject_hostile_presence": false,
+      "protect_star": false,
+      "constraints": [],
+      "planets": [],
+      "ships": []
+    }
+  ],
+  "places": [],
+  "items": [],
+  "groups": [],
+  "group_relations": [],
+  "init_code": "",
+  "turn_code": "",
+  "dialog_begin_code": {
+    "code_file": "code/dialog_begin_code.code"
+  },
+  "states": [],
+  "dialogs": [
+    {
+      "name": "FHDExpeditionAction",
+      "code": ""
+    }
+  ],
+  "dialog_messages": [],
+  "dialog_answers": [],
+  "script_name": "FHD_Expedition",
+  "original_sha256": "3f23c361cc899c47ccf46677e7d47e015da79c2a5e10c7355a2f6121f316045b"
+}

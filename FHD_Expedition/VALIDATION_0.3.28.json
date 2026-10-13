@@ -1,0 +1,31 @@
+{
+  "version": "0.3.28 RuinsTalk Intro Request Fix",
+  "based_on": "0.3.27 RuinsTalk Intro",
+  "goal": "Keep screenshot layout: upper native RuinsTalk text pane + lower native Continue/Refuse answers; fix crash before dialog.",
+  "log_root_cause": "ShipAddCustomShipInfo uses InfoType to access ShipInfo/AddInfo/CustomInfos/<InfoType>; FHDExpeditionIntroRequest was not registered in Lang.dat.",
+  "fix": "Registered hidden CustomInfo FHDExpeditionIntroRequest with Description=NoShow, Icon=0, Name=''.",
+  "lang_seed_preserved": true,
+  "lang_added_entries": [
+    [
+      "ShipInfo/AddInfo/CustomInfos/FHDExpeditionIntroRequest/Description",
+      "NoShow"
+    ],
+    [
+      "ShipInfo/AddInfo/CustomInfos/FHDExpeditionIntroRequest/Icon",
+      "0"
+    ],
+    [
+      "ShipInfo/AddInfo/CustomInfos/FHDExpeditionIntroRequest/Name",
+      ""
+    ]
+  ],
+  "lang_removed_entries": [],
+  "original_scr_preserved_from_0327": true,
+  "helper_scr_preserved_from_0327": true,
+  "native_dll_preserved_from_0327": true,
+  "main_dat_preserved_from_0327": true,
+  "cachedata_preserved_from_0327": true,
+  "lang_roundtrip_decode_ok": true,
+  "main_button_code": "ShipDeleteCustomShipInfo(Player(),'FHDExpeditionIntroRequest');ShipAddCustomShipInfo(Player(),'FHDExpeditionIntroRequest','NoShow',0,0,0,'','','FHDEXP_INTRO_REQUEST');GotoGov(1);",
+  "dialog_layout": "Upper NPC text area + lower native answer list, no MessageBox/separate dialog window."
+}
