@@ -1,0 +1,16 @@
+Name=FHD_Expedition
+Section=FHD_MODS
+Author=Prolog_D
+Dependence=
+Conflict=EvoFreeInflation,EvoNoInflation
+Priority=3
+Languages=Rus
+SmallDescription=<color=0,140,255>Научные экспедиции</color>: отправка зондов.
+SmallDescription=<color=255,215,0>ver.0.3.22.1</color>
+FullDescription=Добавляет в игру возможность отправить экспедицию на необитаемую планету для исследования. Стоимость экспедиций меняется со временем и ростом цен в галактике.
+SmallDescription=------------------------------------  <color=0,200,255>ENG</color>  ----------------------------------------
+FullDescription= ------------------------------------  <color=0,200,255>ENG</color>  ----------------------------------------
+Languages=Eng
+SmallDescription=<color=0,140,255>Scientific Expeditions</color>: launching probes.
+SmallDescription=<color=255,215,0>ver.0.3.22.1</color>
+FullDescription=Adds the ability to launch an expedition to an uninhabited planet for exploration. The cost of expeditions scales over time and with galaxy-wide price inflation.

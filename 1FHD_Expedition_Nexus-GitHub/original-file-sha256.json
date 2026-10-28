@@ -1,0 +1,13 @@
+{
+  "CFG/CacheData.dat": "3d1485b3220656bc70b4fcd57ca7b6b0d556a55f076b484599d9b8535c0575be",
+  "CFG/Main.dat": "dab41cc33370acc2389006fe113cb49e371d7b40eacdc307f2e8e8e89968c646",
+  "CFG/Rus/Lang.dat": "38378b7f8a917ad388edc94ea1c771bd9fe7978527a5eb3b0f35cffca6a28963",
+  "DATA/FHDExpeditionNative.dll": "543bf09bf5c7e308eafbb2e5606320b812f9727ab52319a27151979f2594b8db",
+  "DATA/Script/FHD_Expedition.scr": "3f23c361cc899c47ccf46677e7d47e015da79c2a5e10c7355a2f6121f316045b",
+  "DATA/Script/FHD_Expedition_Intro.scr": "e972ecd789ff34a1f4e845a7a5c36d9a33ffea0eb04a973a2fce93ae509ec882",
+  "DATA/UI/2ExpedA.gi": "34b3b88eb2fea15b2271de12b265765afc13fcd3c4628ed9270f44b2c23f4172",
+  "DATA/UI/2ExpedD.gi": "5a98013a815e9f657d1b0c5cb8a571c6f122ccd1c44e1e5eb16be89ebc5aa512",
+  "DATA/UI/2ExpedN.gi": "6e5c427c4c69ae81b3c0491ce72523721f5b155fbcdead8ec7c8211be8187ada",
+  "DATA/UI/HUD2.gi": "21d967cbf5903e73ede1e8517fb02369316465b9cd93d5eead91dc04996953fd",
+  "ModuleInfo.txt": "d2686928eaa4a42ec5dd07818f40a958f330b2195de53f2d9532435812a37500"
+}

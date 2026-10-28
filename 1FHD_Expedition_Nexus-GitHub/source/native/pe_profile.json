@@ -1,0 +1,40 @@
+{
+  "format": "srhd-native-pe32-v1",
+  "dll_name": "FHDExpeditionNative.dll",
+  "image_base": 268435456,
+  "coff_timestamp": 1789596282,
+  "coff_characteristics": 8450,
+  "linker_version": [
+    14,
+    0
+  ],
+  "os_version": [
+    6,
+    0
+  ],
+  "image_version": [
+    0,
+    0
+  ],
+  "subsystem_version": [
+    6,
+    0
+  ],
+  "subsystem": 2,
+  "dll_characteristics": 1344,
+  "section_alignment": 4096,
+  "file_alignment": 512,
+  "stack_reserve": 1048576,
+  "stack_commit": 4096,
+  "heap_reserve": 1048576,
+  "heap_commit": 4096,
+  "data_virtual_size": 8,
+  "text_padding": 204,
+  "exports": [
+    "DeployProbe",
+    "FHDExpeditionNativeInit",
+    "FindProbeById",
+    "RecoverIdleProbe",
+    "RecoverProbe"
+  ]
+}

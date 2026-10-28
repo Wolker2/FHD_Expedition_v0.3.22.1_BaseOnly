@@ -1,0 +1,137 @@
+{
+  "FileID": 573785173,
+  "FileVersion": 8,
+  "ViewPos.x": 0,
+  "ViewPos.y": 0,
+  "ScriptName": "FHD_Expedition",
+  "ScriptFileOut": "FHD_Expedition.scr",
+  "ScriptTextOut": "Lang.txt",
+  "GraphPoint.Count": 7,
+  "GraphLink.Count": 1,
+  "GraphRectText.Count": 0,
+  "Variables.Count": 0,
+  "Stars.Count": 1,
+  "Planets.Count": 0,
+  "Ships.Count": 0,
+  "States.Count": 0,
+  "Groups.Count": 0,
+  "Places.Count": 0,
+  "Items.Count": 0,
+  "Ethers.Count": 0,
+  "Dialogs.Count": 1,
+  "DialogMessages.Count": 0,
+  "DialogAnswers.Count": 0,
+  "Operations.Count": 5,
+  "Statements.Count": 0,
+  "Loops.Count": 0,
+  "Visual.Objects": [
+    {
+      "Stars": [
+        {
+          "Type": "TStar",
+          "Name": "FHDExpAnchor",
+          "Pos.x": 0,
+          "Pos.y": 0,
+          "Parent": -1,
+          "#": 0,
+          "Constellation": -1,
+          "Priority": 0,
+          "NoKling": false,
+          "NoComeKling": false,
+          "Recovery.VariableKind": 2,
+          "Recovery.VariableInit": 0
+        }
+      ],
+      "Dialogs": [
+        {
+          "Type": "TDialog",
+          "Name": "FHDExpeditionAction",
+          "Pos.x": 180,
+          "Pos.y": 0,
+          "Parent": -1,
+          "#": 1,
+          "Recovery.VariableKind": 1,
+          "Recovery.VariableInit": 0
+        }
+      ],
+      "Operations": [
+        {
+          "Type": "Top",
+          "Name": "Dialog: FHDExpeditionAction",
+          "Pos.x": 360,
+          "Pos.y": 0,
+          "Parent": 1,
+          "#": 2,
+          "Total.Lines": 1,
+          "Code.Type": "Turn",
+          "Code": [
+            ""
+          ]
+        },
+        {
+          "Type": "Top",
+          "Name": "global_code",
+          "Pos.x": 540,
+          "Pos.y": 0,
+          "Parent": -1,
+          "#": 3,
+          "Total.Lines": 1,
+          "Code.Type": "Global",
+          "Code": [
+            "GRun();"
+          ]
+        },
+        {
+          "Type": "Top",
+          "Name": "init_code",
+          "Pos.x": 720,
+          "Pos.y": 0,
+          "Parent": -1,
+          "#": 4,
+          "Total.Lines": 1,
+          "Code.Type": "Init",
+          "Code": [
+            ""
+          ]
+        },
+        {
+          "Type": "Top",
+          "Name": "turn_code",
+          "Pos.x": 900,
+          "Pos.y": 0,
+          "Parent": -1,
+          "#": 5,
+          "Total.Lines": 1,
+          "Code.Type": "Turn",
+          "Code": [
+            ""
+          ]
+        },
+        {
+          "Type": "Top",
+          "Name": "dialog_code",
+          "Pos.x": 1080,
+          "Pos.y": 0,
+          "Parent": -1,
+          "#": 6,
+          "Total.Lines": 1,
+          "Code.Type": "DialogBegin",
+          "Code": [
+            "ExecuteCodeFromString(GenerateCodeStringFromBlock('Script.FHDExpedition.EnsureController'));                                                                                                                                                                                                                                                                                                                                                           "
+          ]
+        }
+      ]
+    }
+  ],
+  "Visual.Links": [
+    {
+      "Type": "TGraphLink",
+      "Begin": 1,
+      "End": 2,
+      "Nom": 0,
+      "Arrow": true
+    }
+  ],
+  "BlockPar.EC.Total.Strings": 0,
+  "BlockPar.EC": []
+}
